@@ -1,0 +1,30 @@
+<!--suppress ALL -->
+<th:block th:fragment>
+    <div class="container">
+        <div class="row mt-3">
+            <th:block th:if="${session.gender == 'Мъж'}">
+                <img src="/static/img/profile-page/user-male-profile-picture.jpg"
+                     th:src="@{/img/profile-page/user-male-profile-picture.jpg}"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+            <th:block th:if="${session.gender == 'Жена'}">
+                <img src="/static/img/profile-page/user-female-profile-picture.png"
+                     th:src="@{/img/profile-page/user-female-profile-picture.png}"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+
+            <div class="col-sm-4 col-md-7 justify-content-center" style="color: orangered;">
+                <blockquote>
+                    <hr>
+                    <i class="fas fa-user-circle"></i> <th:block th:text="${session.name} + ' ' + ${session.lastName} + ' - Администратор'"/>
+                    <hr>
+                    <i class="fas fa-envelope"></i> <th:block th:text="${session.email}"/>
+                    <hr>
+                    <i class="fas fa-phone"></i> <th:block th:text="${session.phone}"/>
+                    <hr>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+    <hr>
+</th:block>

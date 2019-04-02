@@ -1,0 +1,149 @@
+<!--suppress ALL -->
+<th:block th:fragment>
+    <div class='container'>
+        <div class='row' style='padding-top:25px; padding-bottom:25px;'>
+            <div class='col-md-12'>
+                <div id='mainContentWrapper'>
+                    <div class="col-md-12">
+                        <h2 style="text-align: center;">
+                            Потвърждение на поръчката
+                        </h2>
+                        <hr/>
+                        <div class="shopping_cart">
+                            <form class="form-horizontal" role="form" action="" method="post" id="payment-form">
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <div style="text-align: center; width:100%;"><a style="width:100%;"
+                                                                                                data-toggle="collapse"
+                                                                                                data-parent="#accordion"
+                                                                                                href="#collapseTwo"
+                                                                                                class="btn btn-secondary"
+                                                                                                onclick="$(this).fadeOut(); $('#payInfo').fadeIn();">Прегледайте
+                                                    данните за доставка <i class="fas fa-info-circle"></i></a></div>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <b>Моля, прегледайте Вашите лични данни.</b>
+                                                <br/><br/>
+                                                <table class="table table-striped" style="font-weight: bold;">
+                                                    <tr>
+                                                        <td style="width: 175px;">
+                                                            <label for="id_email">Имейл адрес:</label></td>
+                                                        <td>
+                                                            <input class="form-control" type="text" id="id_email"
+                                                                   th:value="${session.email}" disabled/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 175px;">
+                                                            <label for="id_first_name">Име:</label></td>
+                                                        <td>
+                                                            <input class="form-control" type="text" id="id_first_name"
+                                                                   th:value="${session.name}" disabled/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 175px;">
+                                                            <label for="id_last_name">Фамилия:</label></td>
+                                                        <td>
+                                                            <input class="form-control" type="text" id="id_last_name"
+                                                                   th:value="${session.lastName}" disabled/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 175px;">
+                                                            <label for="id_address_line_1">Адрес:</label></td>
+                                                        <td>
+                                                            <input class="form-control" type="text"
+                                                                   id="id_address_line_1" th:value="${session.address}"
+                                                                   disabled/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 175px;">
+                                                            <label for="id_city">Град:</label></td>
+                                                        <td>
+                                                            <input class="form-control" type="text" id="id_city"
+                                                                   th:value="${session.town}" disabled/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 175px;">
+                                                            <label for="id_phone">Телефонен номер:</label></td>
+                                                        <td>
+                                                            <input class="form-control" type="text" id="id_phone"
+                                                                   th:value="${session.phone}" disabled/>
+                                                        </td>
+                                                    </tr>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <hr/>
+                                                <a class="btn btn-primary" style="width: 100%;" data-toggle="collapse"
+                                                   data-parent="#accordion" href="#collapseOne">Потвърдете поръчката <i
+                                                        class="far fa-check-circle"></i></a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="items">
+                                                    <div class="col-md-9">
+                                                        <table class="table table-striped">
+                                                            <th:block th:each="product, iterStat : ${checkoutProducts}"
+                                                                      th:object="${product}">
+                                                                <tr>
+                                                                    <td colspan="2">
+                                                                        <b th:text="'Име на продукта: '+ ${product.value.name}"></b>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <ul>
+                                                                            <li th:text="'Произход: ' + ${product.value.country}"></li>
+                                                                            <li th:text="'Производител: ' + ${product.value.manufacturer}"></li>
+                                                                            <li th:text="'Единична цена: ' + ${product.value.price} + ' лв.'"></li>
+                                                                            <li th:text="'Количество: ' + ${product.value.cartAmount} + ' бр.'"></li>
+                                                                        </ul>
+                                                                    </td>
+                                                                    <td>
+                                                                        <b th:text="${product.value.price} * ${product.value.cartAmount} + ' лв.'"></b>
+                                                                    </td>
+                                                                </tr>
+                                                            </th:block>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div style="text-align: right;">
+                                                            <h3>Крайна сума + доставка</h3>
+                                                            <h3><span style="color:green;" th:text="${totalPrice} + 6.99 + ' лв.'"></span></h3>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-success btn-lg"
+                                                            style="width:100%;">
+                                                        Потвърди поръчката
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+</th:block>

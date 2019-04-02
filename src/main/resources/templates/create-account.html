@@ -1,0 +1,143 @@
+<!--suppress ALL -->
+<th:block th:fragment>
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <th:block th:if="${registered == true}">
+                <h3 style="color:#0fad00" class="text-center">Успешна регистрация!</h3>
+                <meta http-equiv="refresh" th:attr="content=${'1; url=/sign-in'}"/>
+            </th:block>
+            <th:block th:unless="${registered == true}">
+                <th:block th:if="${registered == false}">
+                    <h3 style="color:#ff0000" class="text-center">Неуспешна регистрация!</h3>
+                    <p class="text-center">Моля, въведете валидни данни!</p>
+                </th:block>
+                <th:block th:if="${registered == null}">
+                    <h5 class="text-center">Създайте си профил!</h5>
+                    <p class="text-center">Пазарувайте по-лесно като се регистрирате!</p>
+                </th:block>
+
+
+                <form th:method="post" th:action="@{/create-account}" th:object="${bindingModel}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('*')}" th:text="${error}" th:class="text-danger"/>
+                    </ul>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Име" title="" type="text" name="firstName"
+                               required="required"
+                               th:field="*{firstName}"
+                               oninvalid="this.setCustomValidity('Името трябва да е между 2 и 20 символа.')"
+                               oninput="this.setCustomValidity('')">
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Фамилия" title="" type="text" name="lastName"
+                               required="required"
+                               th:field="*{lastName}"
+                               oninvalid="this.setCustomValidity('Фамилията трябва да е между 2 и 20 символа.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-venus-mars"></i> </span>
+                        </div>
+                        <!-- inline 1-->
+                        <div class="custom-control custom-radio custom-control-inline ml-2">
+                            <input type="radio" class="custom-control-input" id="genderMan"
+                                   name="gender" th:checked="checked" th:value="Мъж">
+                            <label class="custom-control-label" for="genderMan">Мъж</label>
+                        </div>
+                        <!-- inline 2-->
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="genderWoman"
+                                   name="gender" th:value="Жена">
+                            <label class="custom-control-label" for="genderWoman">Жена</label>
+                        </div>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input formnovalidate class="form-control" placeholder="Имейл адрес" title="" type="text"
+                               name="email" required="required" th:field="*{email}"
+                               oninvalid="this.setCustomValidity('Моля попълнете полето с валиден имейл.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                        </div>
+                        <select class="custom-select" style="max-width: 120px;">
+                            <option selected>+359</option>
+                        </select>
+                        <input class="form-control" placeholder="Телефонен номер" title="" type="text"
+                               name="phoneNumber"
+                               required="required" th:field="*{phoneNumber}"
+                               oninvalid="this.setCustomValidity('Телефонният номер трябва да е 9 символа.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-address-card"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Вашият адрес" title="" type="text" name="address"
+                               required="required" th:field="*{address}"
+                               oninvalid="this.setCustomValidity('Моля попълнете полето.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-city"></i> </span>
+                        </div>
+                        <select class="form-control" name="town">
+                            <option th:text="Град" th:selected="true" th:disabled="disabled"/>
+                            <option th:value="Варна" th:text="Варна"/>
+                            <option th:value="София" th:text="София"/>
+                            <option th:value="Русе" th:text="Русе"/>
+                            <option th:value="Шумен" th:text="Шумен"/>
+                            <option th:value="Хасково" th:text="Хасково"/>
+                            <option th:value="Силистра" th:text="Силистра"/>
+                            <option th:value="Бургас" th:text="Бургас"/>
+                            <option th:value="Сливен" th:text="Сливен"/>
+                        </select>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-key"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Парола" type="password" title="" name="password"
+                               required="required" th:field="*{password}"
+                               oninvalid="this.setCustomValidity('Моля попълнете полето.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-key"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Повтори парола" type="password" title=""
+                               name="confirmPassword" required="required" th:field="*{confirmPassword}"
+                               oninvalid="this.setCustomValidity('Моля повторете паролата.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Създай профил</button>
+                    </div>
+                    <p class="text-center">Имаш създаден профил? <a th:href="@{/sign-in}">Влез</a></p>
+                </form>
+            </th:block>
+        </article>
+    </div>
+</th:block>

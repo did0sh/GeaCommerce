@@ -1,0 +1,139 @@
+<!--suppress ALL -->
+<th:block th:fragment>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <th:block th:if="${addedProduct == true}">
+                <h3 style="color:#0fad00" class="text-center">Успешно добавяне!</h3>
+                <meta http-equiv="refresh" th:attr="content=${'1; url=/products/all'}" />
+            </th:block>
+            <th:block th:unless="${addedProduct == true}">
+                <th:block th:if="${addedProduct == null}">
+                    <h5 class="card-title mt-3 text-center">Добави продукт!</h5>
+                </th:block>
+                <th:block th:if="${addedProduct == false}">
+                    <h3 style="color:#ff0000" class="text-center">Неуспешно добавяне!</h3>
+                    <p class="text-center">Моля, въведете валидни данни!</p>
+                </th:block>
+
+
+            <form th:method="post" th:action="@{/products/add-product}" th:object="${addProduct}">
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <select id="type" class="form-control" name="type" required="required">
+                        <option th:selected="true" th:disabled="disabled" th:text="Тип"/>
+                        <option th:value="Лагер" th:text="Лагер"/>
+                        <option th:value="Ремък" th:text="Ремък"/>
+                        <option th:value="Семеринг" th:text="Семеринг"/>
+                        <option th:value="Друг" th:text="Друг"/>
+                    </select>
+                </div> <!-- form-group// -->
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Име" title="" type="text" name="name"
+                           required="required"
+                           th:field="*{name}"
+                           oninvalid="this.setCustomValidity('Името трябва да е между 2 и 20 символа.')"
+                           oninput="this.setCustomValidity('')">
+                </div> <!-- form-group// -->
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <select id="manufacturer" class="form-control" name="manufacturer" required="required">
+                        <option th:selected="true" th:disabled="disabled" th:text="Производител"/>
+                    </select>
+                </div> <!-- form-group// -->
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-money-bill-alt"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Цена" title="" type="number" step="any"
+                           name="price" required="required" th:field="*{price}" onkeydown="return (event.keyCode !== 69 && event.keyCode !== 189)"
+                           oninvalid="this.setCustomValidity('Моля попълнете полето.')"
+                           oninput="this.setCustomValidity('')"/>
+                </div> <!-- form-group// -->
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-cart-arrow-down"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Количество" title="" type="number"
+                           name="amount" required="required" th:field="*{amount}" onkeydown="return (event.keyCode !== 69 && event.keyCode !== 190 && event.keyCode !== 189)"
+                           oninvalid="this.setCustomValidity('Моля попълнете полето.')"
+                           oninput="this.setCustomValidity('')"/>
+                </div> <!-- form-group// -->
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-city"></i> </span>
+                    </div>
+                    <select id="country" class="form-control" name="country" required="required">
+                        <option th:selected="true" th:disabled="disabled" th:text="Произход"/>
+                    </select>
+                </div> <!-- form-group// -->
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-truck"></i> </span>
+                    </div>
+                    <select class="form-control" name="status" required="required">
+                        <option th:selected="true" th:disabled="disabled" th:text="Статус"/>
+                        <option>В наличност</option>
+                        <option>3-5 работни дни</option>
+                        <option>7-10 работни дни</option>
+                    </select>
+                </div> <!-- form-group// -->
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Добави</button>
+                </div><!-- form-group// -->
+            </form>
+            </th:block>
+        </article>
+    </div>
+</th:block>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#type").change(function () {
+            var val = $(this).val();
+            if (val == "Лагер") {
+                $("#manufacturer").html("<option value='FAG'>FAG</option>" +
+                    "<option value='NKE'>NKE</option>" +
+                    "<option value='SKF'>SKF</option>");
+
+                $("#country").html("<option value='Германия'>Германия</option>" +
+                    "<option value='Австрия'>Австрия</option>");
+            } else if (val == "Ремък") {
+                $("#manufacturer").html("<option value='OPTIBELT'>OPTIBELT</option>" +
+                    "<option value='CONTINENTAL'>CONTINENTAL</option>" +
+                    "<option value='GATES'>GATES</option>");
+
+                $("#country").html("<option value='Германия'>Германия</option>" +
+                    "<option value='Холандия'>Холандия</option>" +
+                    "<option value='Чехия'>Чехия</option>");
+            } else if (val == "Семеринг") {
+                $("#manufacturer").html("<option value='TIMKEN'>TIMKEN</option>" +
+                    "<option value='GUFFERO'>GUFFERO</option>" +
+                    "<option value='UK'>UK</option>");
+
+                $("#country").html("<option value='Италия'>Италия</option>" +
+                    "<option value='Великобритания'>Великобритания</option>");
+            } else if (val == "Друг") {
+                $("#manufacturer").html("<option value='ARCANOL'>ARCANOL</option>" +
+                    "<option value='PETROLI'>PETROLI</option>");
+
+                $("#country").html("<option value='Германия'>Германия</option>" +
+                    "<option value='Италия'>Италия</option>");
+            }
+        });
+    });
+</script>

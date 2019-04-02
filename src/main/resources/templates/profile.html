@@ -1,0 +1,41 @@
+<!--suppress ALL -->
+<th:block th:fragment>
+    <div class="container">
+        <div class="row mt-3">
+            <th:block th:if="${session.gender == 'Мъж'}">
+                <img src="/static/img/profile-page/user-male-profile-picture.jpg"
+                     th:src="@{/img/profile-page/user-male-profile-picture.jpg}"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+            <th:block th:if="${session.gender == 'Жена'}">
+                <img src="/static/img/profile-page/user-female-profile-picture.png"
+                     th:src="@{/img/profile-page/user-female-profile-picture.png}"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+
+            <div class="col-sm-4 col-md-7" style="color: orangered;">
+                <blockquote>
+                    <i class="fas fa-user-circle"></i> <th:block th:text="${session.name} + ' ' + ${session.lastName}"/>
+                    <hr>
+                    <i class="fas fa-map-marker-alt"></i> <th:block th:text="${session.address} + ', ' + ${session.town}"/>
+                    <hr>
+                </blockquote>
+                <blockquote>
+                    <i class="fas fa-envelope"></i> <th:block th:text="${session.email}"/>
+                </blockquote>
+                <hr>
+                <blockquote>
+                    <i class="fas fa-shopping-cart"></i>
+                    <th:block th:if="${session.cartItems == null}">
+                        <a th:href="@{/cart/{id}(id=${session.user.id})}">Продукти в количката: 0</a>
+                    </th:block>
+
+                    <th:block th:unless="${session.cartItems == null}">
+                        <a th:href="@{/cart/{id}(id=${session.user.id})}"><th:block th:text="${'Продукти в количката: ' + session.cartItems}"/></a>
+                    </th:block>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+    <hr>
+</th:block>

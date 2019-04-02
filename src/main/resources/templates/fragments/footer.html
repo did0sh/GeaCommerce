@@ -1,0 +1,64 @@
+<!--suppress ALL -->
+<th:block th:fragment>
+    <footer class="container py-5">
+        <div class="row">
+            <div class="col-12 col-md-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="d-block mb-2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                    <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                    <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                    <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                    <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                    <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+                </svg>
+                <small class="d-block mb-3 text-muted">&copy; Gea Commerce 5</small>
+            </div>
+            <div class="col-6 col-md-4">
+                <h5>Контакти</h5>
+                <p>
+                    <i class="fas fa-home mr-1 text-muted"></i> Бул. Цар Освободител 263, Варна</p>
+                <p>
+                    <i class="fas fa-envelope mr-1 text-muted"></i> boyan@geacommerce.com</p>
+                <p>
+                    <i class="fas fa-phone mr-1 text-muted"></i> 052/618 118</p>
+                <p>
+                    <i class="fas fa-print mr-1 text-muted"></i> 052/618 118</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <h5>Полезни линкове</h5>
+                <p><a class="text-muted" th:href="@{/info}">За нас</a></p>
+                <p><a class="text-muted" th:href="@{/our-shops}">Нашите магазини</a></p>
+                <p><a class="text-muted" th:href="@{/certificates}">Отличия</a></p>
+                <p><a class="text-muted" th:href="@{/privacy}">Права и задължения</a></p>
+            </div>
+            <div class="col-6 col-md-3">
+                <h5>Ресурси</h5>
+                <p><a class="text-muted" th:href="@{/products/bearings}">Лагери</a></p>
+                <p><a class="text-muted" th:href="@{/products/belts}">Ремъци</a></p>
+                <p><a class="text-muted" th:href="@{/products/seals}">Семеринги</a></p>
+                <p><a class="text-muted" th:href="@{/products/other}">Греси и инструменти</a></p>
+            </div>
+        </div>
+        <a onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" id="scroll-to-top" >
+            <i class="fa fa-arrow-circle-up"></i>
+        </a>
+    </footer>
+
+    <script th:src="@{https://code.jquery.com/jquery-3.2.1.slim.min.js}"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/holder.min.js}"></script>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script>
+        Holder.addTheme('thumb', {
+            bg: '#55595c',
+            fg: '#eceeef',
+            text: 'Thumbnail'
+        });
+    </script>
+</th:block>

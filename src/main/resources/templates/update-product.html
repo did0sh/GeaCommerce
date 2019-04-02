@@ -1,0 +1,123 @@
+<!--suppress ALL -->
+<th:block th:fragment>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <th:block th:if="${updatedProduct == true}">
+                <h3 style="color:#0fad00" class="text-center">Успешно актуализиране!</h3>
+                <meta http-equiv="refresh" th:attr="content=${'1; url=/products/all'}" />
+            </th:block>
+            <th:block th:unless="${updatedProduct == true}">
+                <th:block th:if="${updatedProduct == null}">
+                    <h5 class="card-title mt-3 text-center">Актуализирай продукт!</h5>
+                </th:block>
+                <th:block th:if="${updatedProduct == false}">
+                    <h3 style="color:#ff0000" class="text-center">Неуспешно актуализиране!</h3>
+                    <p class="text-center">Моля, въведете валидни данни!</p>
+                </th:block>
+
+
+                <form th:method="post" th:object="${product}" th:action="@{/products/update-product/{id}(id=${product.id})}">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input id="type" th:field="*{type}" th:disabled="disabled" class="form-control" name="type">
+                        </input>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input class="form-control" type="text" name="name"
+                               required="required"
+                               th:field="*{name}" th:disabled="disabled">
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input id="manufacturer" class="form-control" name="manufacturer" th:field="*{manufacturer}" th:disabled="disabled"></input>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-money-bill-alt"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Цена" title="" type="number" step="any"
+                               name="price" required="required" th:field="*{price}" onkeydown="return event.keyCode !== 69"
+                               oninvalid="this.setCustomValidity('Моля попълнете полето.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-cart-arrow-down"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Количество" title="" type="number"
+                               name="amount" required="required" th:field="*{amount}" onkeydown="return (event.keyCode !== 69 && event.keyCode !== 190)"
+                               oninvalid="this.setCustomValidity('Моля попълнете полето.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-city"></i> </span>
+                        </div>
+                        <input id="country" class="form-control" name="country" th:field="*{country}" th:disabled="disabled"></input>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-truck"></i> </span>
+                        </div>
+                        <input class="form-control" name="status" th:field="*{status}" th:disabled="disabled"></input>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Актуализирай</button>
+                    </div><!-- form-group// -->
+                </form>
+            </th:block>
+        </article>
+    </div>
+</th:block>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#type").change(function () {
+            var val = $(this).val();
+            if (val == "Лагер") {
+                $("#manufacturer").html("<option value='FAG'>FAG</option>" +
+                    "<option value='NKE'>NKE</option>" +
+                    "<option value='SKF'>SKF</option>");
+
+                $("#country").html("<option value='Германия'>Германия</option>" +
+                    "<option value='Австрия'>Австрия</option>");
+            } else if (val == "Ремък") {
+                $("#manufacturer").html("<option value='OPTIBELT'>OPTIBELT</option>" +
+                    "<option value='CONTINENTAL'>CONTINENTAL</option>" +
+                    "<option value='GATES'>GATES</option>");
+
+                $("#country").html("<option value='Германия'>Германия</option>" +
+                    "<option value='Холандия'>Холандия</option>" +
+                    "<option value='Чехия'>Чехия</option>");
+            } else if (val == "Семеринг") {
+                $("#manufacturer").html("<option value='TIMKEN'>TIMKEN</option>" +
+                    "<option value='GUFFERO'>GUFFERO</option>" +
+                    "<option value='UK'>UK</option>");
+
+                $("#country").html("<option value='Италия'>Италия</option>" +
+                    "<option value='Великобритания'>Великобритания</option>");
+            } else if (val == "Друг") {
+                $("#manufacturer").html("<option value='ARCANOL'>ARCANOL</option>" +
+                    "<option value='PETROLI'>PETROLI</option>");
+
+                $("#country").html("<option value='Германия'>Германия</option>" +
+                    "<option value='Италия'>Италия</option>");
+            }
+        });
+    });
+</script>

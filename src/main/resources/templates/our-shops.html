@@ -1,0 +1,227 @@
+<!--suppress ALL -->
+<th:block th:fragment>
+    <style type="text/css">
+        .lib-panel {
+            margin-bottom: 20Px;
+        }
+
+        .lib-panel img {
+            width: 100%;
+            background-color: transparent;
+        }
+
+        .lib-panel .row,
+        .lib-panel .col-md-6 {
+            padding: 0;
+            background-color: #FFFFFF;
+        }
+
+        .lib-panel .lib-row {
+            padding: 0 20px 0 15px;
+        }
+
+        .lib-panel .lib-row.lib-header {
+            background-color: #FFFFFF;
+            font-size: 20px;
+            padding: 10px 20px 0 15px;
+        }
+
+        .lib-panel .lib-row.lib-header .lib-header-seperator {
+            height: 2px;
+            width: 26px;
+            background-color: #d9d9d9;
+            margin: 7px 0 7px 0;
+        }
+
+        .lib-panel .lib-row.lib-desc {
+            position: relative;
+            height: 100%;
+            display: block;
+            font-size: 13px;
+        }
+
+        .lib-panel .lib-row.lib-desc a {
+            position: absolute;
+            width: 100%;
+            bottom: 10px;
+            left: 20px;
+        }
+
+        .row-margin-bottom {
+            margin-bottom: 20px;
+        }
+
+        .box-shadow {
+            -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, .10);
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, .10);
+        }
+
+        .no-padding {
+            padding: 0;
+        }
+    </style>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        window.alert = function () {
+        };
+        var defaultCSS = document.getElementById('bootstrap-css');
+
+        function changeCSS(css) {
+            if (css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="' + css + '" type="text/css" />');
+            else $('head > link').filter(':first').replaceWith(defaultCSS);
+        }
+    </script>
+
+    <!--<body>-->
+    <div class="container mt-3">
+        <div class="row row-margin-bottom">
+            <div class="col-md-5 no-padding lib-item" data-category="view">
+                <div class="lib-panel">
+                    <div class="row box-shadow">
+                        <div class="col-md-6">
+                            <a th:target="_blank"
+                               th:href="@{https://www.google.com/maps/place/%D0%B1%D1%83%D0%BB.+%E2%80%9E%D0%A6%D0%B0%D1%80+%D0%9E%D1%81%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%E2%80%9C+263,+%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D1%81%D0%BB%D0%B0%D0%B2%D0%BE%D0%B2%D0%BE,+%D0%92%D0%B0%D1%80%D0%BD%D0%B0/@43.2334038,27.8634479,17z/data=!3m1!4b1!4m5!3m4!1s0x40a454ba2cd21513:0x3e1419fd4e177c57!8m2!3d43.2334038!4d27.8656366}">
+                                <img class="lib-img-show" th:src="@{/img/shops-page/varna-shop.jpg}">
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lib-row lib-header">
+                                <strong>Магазин Варна</strong>
+                                <div class="lib-header-seperator"></div>
+                            </div>
+                            <div class="lib-row lib-desc">
+                                <p>бул. Цар Освободител № 264</p>
+                                <p>Татяна Добрева</p>
+                                <p>телефон: 052 / 511 332</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5 no-padding lib-item" data-category="ui">
+                <div class="lib-panel">
+                    <div class="row box-shadow">
+                        <div class="col-md-6">
+                            <a th:target="_blank"
+                               th:href="@{https://www.google.com/maps/place/%D1%83%D0%BB.+%E2%80%9E%D0%9F%D1%80%D0%B5%D1%81%D0%BB%D0%B0%D0%B2%E2%80%9C+2,+9703+%D0%94%D0%BE%D0%B1%D1%80%D1%83%D0%B4%D0%B6%D0%B0%D0%BD%D1%81%D0%BA%D0%B8,+%D0%A8%D1%83%D0%BC%D0%B5%D0%BD/@43.267839,26.9347587,17z/data=!3m1!4b1!4m5!3m4!1s0x40a58a57c0058fa9:0x6ffffb06996a9a60!8m2!3d43.267839!4d26.9369474}">
+                                <img class="lib-img" th:src="@{/img/shops-page/shumen-shop.jpg}">
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lib-row lib-header">
+                                <strong>Магазин Шумен</strong>
+                                <div class="lib-header-seperator"></div>
+                            </div>
+                            <div class="lib-row lib-desc">
+                                <p>улица Преслав № 2</p>
+                                <p>Димитър Ив. Димитров</p>
+                                <p>телефон: 054 / 832 172</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-margin-bottom">
+            <div class="col-md-5 no-padding lib-item" data-category="view">
+                <div class="lib-panel">
+                    <div class="row box-shadow">
+                        <div class="col-md-6">
+                            <a th:target="_blank"
+                                th:href="@{https://www.google.com/maps/place/%D0%B1%D1%83%D0%BB.+%E2%80%9E%D0%A6%D0%B0%D1%80+%D0%A1%D0%B8%D0%BC%D0%B5%D0%BE%D0%BD%E2%80%9C+35,+8801+%D0%A1%D0%BB%D0%B8%D0%B2%D0%B5%D0%BD+%D0%A6%D0%B5%D0%BD%D1%82%D1%8A%D1%80,+%D0%A1%D0%BB%D0%B8%D0%B2%D0%B5%D0%BD/@42.6745359,26.3188969,17z/data=!3m1!4b1!4m5!3m4!1s0x40a6276ae954e7bd:0xd09c6604510bbf18!8m2!3d42.6745359!4d26.3210856}">
+                                <img class="lib-img-show" th:src="@{/img/shops-page/sliven-shop.jpg}">
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lib-row lib-header">
+                                <strong>Магазин Сливен</strong>
+                                <div class="lib-header-seperator"></div>
+                            </div>
+                            <div class="lib-row lib-desc">
+                                <p>ул. Цар Симеон № 35</p>
+                                <p>Атанас Демирев Георгиев</p>
+                                <p>телефон: 044 / 622 792</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5 no-padding lib-item" data-category="ui">
+                <div class="lib-panel">
+                    <div class="row box-shadow">
+                        <div class="col-md-6">
+                            <a th:target="_blank"
+                               th:href="@{https://www.google.com/maps/place/%D1%83%D0%BB.+%E2%80%9E%D0%9F%D0%B0%D1%82%D1%80%D0%B8%D0%B0%D1%80%D1%85+%D0%95%D0%B2%D1%82%D0%B8%D0%BC%D0%B8%D0%B9%E2%80%9C+29,+7504+%D0%A1%D0%B8%D0%BB%D0%B8%D1%81%D1%82%D1%80%D0%B0+%D0%A6%D0%B5%D0%BD%D1%82%D1%8A%D1%80,+%D0%A1%D0%B8%D0%BB%D0%B8%D1%81%D1%82%D1%80%D0%B0/@44.1168565,27.2675086,17z/data=!3m1!4b1!4m5!3m4!1s0x40b01f7885242efd:0x302184be7e521038!8m2!3d44.1168565!4d27.2696973}">
+                                <img class="lib-img" th:src="@{/img/shops-page/silistra-shop.jpg}">
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lib-row lib-header">
+                                <strong>Магазин Силистра</strong>
+                                <div class="lib-header-seperator"></div>
+                            </div>
+                            <div class="lib-row lib-desc">
+                                <p>ул. Патриарх Евтимий № 29</p>
+                                <p>Роси Георгиева</p>
+                                <p>телефон: 086 / 824 102</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-margin-bottom">
+            <div class="col-md-5 no-padding lib-item" data-category="view">
+                <div class="lib-panel">
+                    <div class="row box-shadow">
+                        <div class="col-md-6">
+                            <a th:target="_blank"
+                               th:href="@{https://www.google.com/maps/place/%D1%83%D0%BB.+%E2%80%9E%D0%A1%D0%BB%D0%B8%D0%B2%D0%BD%D0%B8%D1%86%D0%B0%E2%80%9C+89,+8000+%D0%B6.%D0%BA.+%D0%92%D1%8A%D0%B7%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%D0%B5,+%D0%91%D1%83%D1%80%D0%B3%D0%B0%D1%81/@42.4944383,27.4585452,17z/data=!3m1!4b1!4m5!3m4!1s0x40a694ba4c551ebb:0xc655a4dea9099175!8m2!3d42.4944383!4d27.4607339}">
+                                <img class="lib-img-show" th:src="@{/img/shops-page/burgas-shop.jpg}">
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lib-row lib-header">
+                                <strong>Магазин Бургас</strong>
+                                <div class="lib-header-seperator"></div>
+                            </div>
+                            <div class="lib-row lib-desc">
+                                <p>ул. Сливница № 89</p>
+                                <p>Мария Тотева</p>
+                                <p>телефон: 056 / 817 724</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5 no-padding lib-item" data-category="ui">
+                <div class="lib-panel">
+                    <div class="row box-shadow">
+                        <div class="col-md-6">
+                            <a  th:target="_blank"
+                                th:href="@{https://www.google.com/maps/place/%D0%B1%D1%83%D0%BB.+%E2%80%9E%D0%A1%D1%8A%D0%B5%D0%B4%D0%B8%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%E2%80%9C+49,+6304+%D0%A5%D0%B0%D1%81%D0%BA%D0%BE%D0%B2%D0%BE+%D0%A6%D0%B5%D0%BD%D1%82%D1%8A%D1%80,+%D0%A5%D0%B0%D1%81%D0%BA%D0%BE%D0%B2%D0%BE/@41.9331546,25.5643796,17z/data=!3m1!4b1!4m5!3m4!1s0x14ad50d296310cdd:0xd4b1b860d5b922c8!8m2!3d41.9331546!4d25.5665683}">
+                                <img th:src="@{/img/shops-page/haskovo-shop.jpg}">
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lib-row lib-header">
+                                <strong>Магазин Хасково</strong>
+                                <div class="lib-header-seperator"></div>
+                            </div>
+                            <div class="lib-row lib-desc">
+                                <p>ул. Съединение № 49</p>
+                                <p>Мария Славова Колешева</p>
+                                <p>телефон: 038 / 661 149</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+</th:block>

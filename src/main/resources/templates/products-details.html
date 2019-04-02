@@ -1,0 +1,180 @@
+<!--suppress ALL -->
+<th:block th:fragment>
+    <div class="container" th:object="${product}">
+        <th:block th:if="${addedToCart} == false">
+            <h3 style="color:#ff0000" class="text-center mt-2">Неуспешно добавяне!</h3>
+            <p class="text-center">Моля, въведете валиден брой!</p>
+        </th:block>
+        <th:block th:if="${onStock} == false">
+            <h3 style="color:#ff0000" class="text-center mt-2">Неуспешно добавяне!</h3>
+            <p class="text-center">В момента няма
+                <th:block th:text="${product.amount}"/>
+                бр. в наличност.
+            </p>
+        </th:block>
+        <div class="row mt-3">
+            <th:block th:if="*{manufacturer} == 'FAG'">
+                <img src="/static/img/products-page/bearings/fag-test-picture.jpg"
+                     th:src="@{/img/products-page/bearings/fag-test-picture.jpg}"
+                     style="width: 30%; height: 20%"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+            <th:block th:if="*{manufacturer} == 'SKF'">
+                <img src="/static/img/products-page/bearings/skf-test-picture.jpg"
+                     th:src="@{/img/products-page/bearings/skf-test-picture.jpg}"
+                     style="width: 30%; height: 20%"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+            <th:block th:if="*{manufacturer} == 'NKE'">
+                <img src="/static/img/products-page/bearings/nke-test-picture.jpg"
+                     th:src="@{/img/products-page/bearings/nke-test-picture.jpg}"
+                     style="width: 30%; height: 20%"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+            <th:block th:if="*{manufacturer} == 'OPTIBELT'">
+                <img src="/static/img/products-page/belts/optibelt-test-picture-2.jpg"
+                     th:src="@{/img/products-page/belts/optibelt-test-picture-2.jpg}"
+                     style="width: 30%; height: 20%"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+            <th:block th:if="*{manufacturer} == 'CONTINENTAL'">
+                <img src="/static/img/products-page/belts/continental-test-picture.jpg"
+                     th:src="@{/img/products-page/belts/continental-test-picture.jpg}"
+                     style="width: 30%; height: 20%"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+            <th:block th:if="*{manufacturer} == 'GATES'">
+                <img src="/static/img/products-page/belts/gates-test-picture.jpg"
+                     th:src="@{/img/products-page/belts/gates-test-picture.jpg}"
+                     style="width: 30%; height: 20%"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+            <th:block th:if="*{manufacturer} == 'TIMKEN'">
+                <img src="/static/img/products-page/seals/timken-test-picture.jpg"
+                     th:src="@{/img/products-page/seals/timken-test-picture.jpg}"
+                     style="width: 30%; height: 20%"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+            <th:block th:if="*{manufacturer} == 'GUFFERO'">
+                <img src="/static/img/products-page/seals/guffero-test-picture-2.jpg"
+                     th:src="@{/img/products-page/seals/guffero-test-picture-2.jpg}"
+                     style="width: 30%; height: 20%"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+            <th:block th:if="*{manufacturer} == 'UK'">
+                <img src="/static/img/products-page/seals/uk-test-picture.jpg"
+                     th:src="@{/img/products-page/seals/uk-test-picture.jpg}"
+                     style="width: 30%; height: 20%"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+            <th:block th:if="*{manufacturer} == 'ARCANOL'">
+                <img src="/static/img/products-page/other/grease-fag-test-picture-2.jpg"
+                     th:src="@{/img/products-page/other/grease-fag-test-picture-2.jpg}"
+                     style="width: 30%; height: 20%"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+            <th:block th:if="*{manufacturer} == 'PETROLI'">
+                <img src="/static/img/products-page/other/grease-petroli-test-picture.jpg"
+                     th:src="@{/img/products-page/other/grease-petroli-test-picture.jpg}"
+                     style="width: 30%; height: 20%"
+                     alt="" class="img-rounded img-responsive"/>
+            </th:block>
+
+            <div class="col-sm-4 col-md-7">
+                <blockquote>
+                    Тип: <strong>
+                    <th:block th:text="*{type}"/>
+                </strong>
+                    <hr>
+                    Име: <strong>
+                    <th:block th:text="*{name}"/>
+                </strong>
+                    <hr>
+                    Цена: <strong>
+                    <th:block th:text="*{price} + ' лв.'"/>
+                </strong>
+                    <th:block th:if="${session.role == 'Admin'}">
+                        <hr>
+                        Количество: <strong>
+                        <th:block th:text="*{amount} + ' бр.'"/>
+                    </strong>
+                    </th:block>
+                    <hr>
+                    Производител: <strong>
+                    <th:block th:text="*{manufacturer} + ', ' + *{country}"/>
+                </strong>
+                    <hr>
+                    Статус: <strong>
+                    <th:block th:text="*{status}"/>
+                </strong>
+                    <hr>
+                </blockquote>
+                <th:block th:if="${session.role == 'Admin'}">
+                    <form th:method="post" th:action="@{/products/details/{id}(id=${product.id})}">
+                        <button type="submit" name="action" value="update" class="btn btn-info">
+                            Актуализирай <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                            Изтрий продукт <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </th:block>
+                <th:block th:if="${session.role == 'Guest'}">
+                    <form th:method="post" th:action="@{/products/details/{id}(id=${product.id})}">
+                        <div>
+                            <div>
+                                <div class="input-group">
+                                    Брой: <input style="display: inline; height: 28px" type="number"
+                                                 class="form-control col-md-2 ml-2"
+                                                 onkeydown="return (event.keyCode !== 69 && event.keyCode !== 190 && event.keyCode !== 189)"
+                                                 id="numberOfProductsToAdd" name="amount"
+                                                 th:value="1">
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <button type="submit" name="action" value="addItem" class="btn btn-success mt-2">
+                                    Добави продукт <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </th:block>
+                <th:block th:if="${session.role == null}">
+                    <a th:href="@{/sign-in}" class="btn btn-primary">
+                        Поръчай <i class="fas fa-sign-in-alt"></i>
+                    </a>
+                    <button type="button" onclick="window.history.back()" class="btn btn-dark">
+                        Обратно <i class="fas fa-backward"></i>
+                    </button>
+                </th:block>
+
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+                     aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel">Потвърди изтриването.</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Сигурни ли сте, че искате да изтриете продукта?
+                            </div>
+                            <div class="modal-footer">
+                                <form th:method="post" th:action="@{/products/details/{id}(id=${product.id})}">
+                                    <button type="submit" name="action" value="delete" class="btn btn-success">
+                                        Потвърди
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+</th:block>

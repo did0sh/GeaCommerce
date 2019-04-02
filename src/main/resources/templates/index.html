@@ -1,0 +1,78 @@
+<!--suppress ALL -->
+<th:block th:fragment>
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+            <h1 class="display-4 font-weight-normal">Добре дошли в Гея Комерс 5!</h1>
+            <p class="lead font-weight-normal">
+                При нас ще намерите висококачествени лагери, ремъци, семеринги, смазочни материали, инструменти и други.
+            </p>
+            <form class="form-inline justify-content-center mt-2 mt-md-0"
+                  th:method="post" th:action="@{/index}" th:object="${searchModel}">
+                <input id="searchInput" required="required"
+                       class="form-control mr-sm-1" type="text" placeholder="Намерете продукт" aria-label="Search"
+                       th:field="*{searchValue}"
+                       oninvalid="this.setCustomValidity('Моля въведете само числа и цифри.')"
+                       oninput="this.setCustomValidity('')">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Търси</button>
+                <ul>
+                    <li th:each="error : ${#fields.errors('searchValue')}" th:text="${error}" th:class="text-danger"/>
+                </ul>
+            </form>
+        </div>
+        <img class="product-device box-shadow d-none d-md-block"
+             th:src="@{/img/index-page/bearing-product-right.jpg}"/>
+        <img class="product-device product-device-2 box-shadow d-none d-md-block"
+             th:src="@{/img/index-page/bearing-product-left.jpg}"/>
+    </div>
+
+    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+        <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+            <div class="my-3 py-3">
+                <h2 class="display-5">Разгледайте нашите лагери!</h2>
+                <p class="lead">FAG, SKF, NKE и много други!</p>
+            </div>
+            <a class="image" th:href="@{/products/bearings}">
+                <img id="photo1" class="bg-light box-shadow mx-auto"
+                     style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"
+                     th:src="@{/img/index-page/bearings-group.png}"/>
+            </a>
+        </div>
+        <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+            <div class="my-3 p-3">
+                <h2 class="display-5">Намерете подходящите ремъци!</h2>
+                <p class="lead">OPTIBELT, CONTINENTAL, GATES и други!</p>
+            </div>
+            <a class="image" th:href="@{/products/belts}">
+                <img id="photo2" class="bg-dark box-shadow mx-auto"
+                     style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"
+                     th:src="@{/img/index-page/belt-group.jpeg}"/>
+            </a>
+        </div>
+    </div>
+
+    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+        <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+            <div class="my-3 p-3">
+                <h2 class="display-5">Открийте разнообразие от семеринги!</h2>
+                <p class="lead">TIMKEN, GUFFERO, UK, ITALY и други!</p>
+            </div>
+            <a class="image" th:href="@{/products/seals}">
+                <img id="photo3" class="bg-dark box-shadow mx-auto"
+                     style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"
+                     th:src="@{/img/index-page/oil-seals-group.jpg}"/>
+            </a>
+        </div>
+        <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+            <div class="my-3 py-3">
+                <h2 class="display-5">Изберете качествени смазочни материали и инструменти!</h2>
+                <p class="lead">ITALIANA PETROLI(IP), FAG и други!</p>
+            </div>
+            <a class="image" th:href="@{/products/other}">
+                <img id="photo4" class="bg-light box-shadow mx-auto"
+                     style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"
+                     th:src="@{/img/index-page/grease-ip.png}"/>
+            </a>
+        </div>
+    </div>
+    <hr>
+</th:block>
