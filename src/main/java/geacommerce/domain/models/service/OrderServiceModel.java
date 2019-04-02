@@ -1,15 +1,13 @@
-package geacommerce.domain.entities;
+package geacommerce.domain.models.service;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import geacommerce.domain.entities.Product;
+import geacommerce.domain.entities.User;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "orders")
-public class Order extends BaseEntity {
+public class OrderServiceModel {
 
     private User buyer;
     private BigDecimal orderPrice;
@@ -18,11 +16,9 @@ public class Order extends BaseEntity {
     private LocalDateTime orderDate;
     private List<Product> boughtProducts;
 
-    public Order() {
+    public OrderServiceModel() {
     }
 
-    @ManyToOne
-    @JoinColumn(name = "buyer_id", referencedColumnName = "id")
     public User getBuyer() {
         return this.buyer;
     }
@@ -31,7 +27,6 @@ public class Order extends BaseEntity {
         this.buyer = buyer;
     }
 
-    @Column(name = "order_price", nullable = false, precision = 7, scale = 2, columnDefinition = "DECIMAL(7,2)")
     public BigDecimal getOrderPrice() {
         return this.orderPrice;
     }
@@ -40,7 +35,6 @@ public class Order extends BaseEntity {
         this.orderPrice = orderPrice;
     }
 
-    @Column(name = "status", nullable = false)
     public String getStatus() {
         return this.status;
     }
@@ -49,7 +43,6 @@ public class Order extends BaseEntity {
         this.status = status;
     }
 
-    @Column(name = "delivery_address", nullable = false)
     public String getDeliveryAddress() {
         return this.deliveryAddress;
     }
@@ -58,7 +51,6 @@ public class Order extends BaseEntity {
         this.deliveryAddress = deliveryAddress;
     }
 
-    @Column(name = "order_date", nullable = false)
     public LocalDateTime getOrderDate() {
         return this.orderDate;
     }
@@ -67,9 +59,6 @@ public class Order extends BaseEntity {
         this.orderDate = orderDate;
     }
 
-    @ManyToMany
-    @JoinTable(name = "orders_products", joinColumns = {@JoinColumn(name = "order_id")},
-                    inverseJoinColumns = {@JoinColumn(name = "product_id")})
     public List<Product> getBoughtProducts() {
         return this.boughtProducts;
     }

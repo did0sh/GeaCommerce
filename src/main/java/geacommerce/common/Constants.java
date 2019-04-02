@@ -28,4 +28,6 @@ public class Constants {
     public static final String USER_LOGIN_REGISTER_PASSWORD_INVALID_MESSAGE = "Паролата трябва съдържа миниммум 3 символа.";
 
     public static final String SEARCH_PATTERN_MESSAGE = "Специални символи не са позволени.";
+
+    public static final String ORDER_STATUS_CONFIRMED = "Приета";
 }

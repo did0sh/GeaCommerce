@@ -13,4 +13,6 @@ public interface UserService {
     UserServiceModel findUserById(String id);
 
     void removeCart(UserServiceModel userServiceModel, String cartId);
+
+    UserServiceModel findUserByEmail(String email);
 }
