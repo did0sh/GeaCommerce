@@ -68,8 +68,8 @@ public class Order extends BaseEntity {
     }
 
     @ManyToMany
-    @JoinTable(name = "orders_products", joinColumns = {@JoinColumn(name = "order_id")},
-                    inverseJoinColumns = {@JoinColumn(name = "product_id")})
+    @JoinTable(name = "orders_products", joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")},
+                    inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id"), @JoinColumn(name = "product_amount", referencedColumnName = "cart_amount")})
     public List<Product> getBoughtProducts() {
         return this.boughtProducts;
     }

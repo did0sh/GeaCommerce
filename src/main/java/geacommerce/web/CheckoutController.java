@@ -12,9 +12,12 @@ import geacommerce.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -42,7 +45,7 @@ public class CheckoutController extends BaseController {
 
     @RequestMapping("/checkout")
     public ModelAndView checkout(HttpSession session){
-        if (session.getAttribute("role") == "Guest" && session.getAttribute("cartID") != null){
+        if (session.getAttribute("role") == "Guest" && session.getAttribute("cartID") != null && session.getAttribute("checkoutClicked") != null){
             String cartID = (String) session.getAttribute("cartID");
             Map<String, Product> checkoutProducts =
                     this.cartService.findCartById(cartID).getProducts();

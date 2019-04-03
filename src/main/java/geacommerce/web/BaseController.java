@@ -39,6 +39,20 @@ public abstract class BaseController {
         return modelAndView;
     }
 
+    protected ModelAndView view(String viewName, String objectName, Object object, String secondObjectName, Object secondObject, String thirdObjectName, Object thirdObject) {
+        ModelAndView modelAndView = new ModelAndView();
+        Map<String, Object> objectMap = new HashMap<>();
+        objectMap.put(objectName, object);
+        objectMap.put(secondObjectName, secondObject);
+        objectMap.put(thirdObjectName, thirdObject);
+
+        modelAndView.setViewName("fragments/base-layout");
+        modelAndView.addObject("view", viewName);
+        modelAndView.addAllObjects(objectMap);
+
+        return modelAndView;
+    }
+
     protected ModelAndView redirect(String url) {
         ModelAndView modelAndView = new ModelAndView();
 
