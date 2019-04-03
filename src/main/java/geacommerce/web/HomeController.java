@@ -45,4 +45,10 @@ public class HomeController extends BaseController {
         session.setAttribute("input", searchBindingModel.getSearchValue());
         return super.redirect("/search");
     }
+
+    @RequestMapping("privacy")
+    public ModelAndView privacy() {
+        return super.view("privacy");
+    }
+
 }

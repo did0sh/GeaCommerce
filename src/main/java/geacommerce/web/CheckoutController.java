@@ -5,19 +5,18 @@ import geacommerce.domain.entities.Product;
 import geacommerce.domain.entities.User;
 import geacommerce.domain.models.service.CartServiceModel;
 import geacommerce.domain.models.service.OrderServiceModel;
+import geacommerce.domain.models.service.ProductServiceModel;
 import geacommerce.domain.models.service.UserServiceModel;
 import geacommerce.service.CartService;
 import geacommerce.service.OrderService;
+import geacommerce.service.ProductService;
 import geacommerce.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -25,7 +24,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 public class CheckoutController extends BaseController {
@@ -33,13 +31,15 @@ public class CheckoutController extends BaseController {
     private final CartService cartService;
     private final UserService userService;
     private final OrderService orderService;
+    private final ProductService productService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public CheckoutController(CartService cartService, UserService userService, OrderService orderService, ModelMapper modelMapper) {
+    public CheckoutController(CartService cartService, UserService userService, OrderService orderService, ProductService productService, ModelMapper modelMapper) {
         this.cartService = cartService;
         this.userService = userService;
         this.orderService = orderService;
+        this.productService = productService;
         this.modelMapper = modelMapper;
     }
 
@@ -80,6 +80,7 @@ public class CheckoutController extends BaseController {
 
         if (this.orderService.saveOrder(order)){
             this.userService.removeCart(user, cartID);
+            this.saveProductsWithNewAmounts(boughtProducts);
             session.setAttribute("cartItems", 0);
             CartServiceModel cartServiceModel = new CartServiceModel();
             session.setAttribute("cart", cartServiceModel);
@@ -96,5 +97,13 @@ public class CheckoutController extends BaseController {
         }
 
         return totalPrice;
+    }
+
+    private void saveProductsWithNewAmounts(List<Product> boughtProducts){
+        for (Product boughtProduct : boughtProducts) {
+            ProductServiceModel dbProduct = this.productService.findProductById(boughtProduct.getId());
+            dbProduct.setAmount(dbProduct.getAmount() - boughtProduct.getCartAmount());
+            this.productService.saveProduct(dbProduct);
+        }
     }
 }

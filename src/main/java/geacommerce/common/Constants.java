@@ -22,7 +22,7 @@ public class Constants {
 
     public static final String USER_REGISTER_NAME_SIZE_MESSAGE = "Името трябва съдържа от 2 до 20 символа.";
     public static final String USER_REGISTER_LASTNAME_SIZE_MESSAGE = "Фамилията трябва съдържа от 2 до 20 символа.";
-    public static final String USER_REGISTER_PHONE_SIZE_MESSAGE = "Телефонният номер трябва съдържа точно 9 символа.";
+    public static final String USER_REGISTER_PHONE_SIZE_MESSAGE = "Телефонният номер трябва съдържа точно 9 цифри.";
 
     public static final String USER_REGISTER_LOGIN_EMAIL_MESSAGE = "Имейлът трябва да е валиден.";
     public static final String USER_LOGIN_REGISTER_PASSWORD_INVALID_MESSAGE = "Паролата трябва съдържа миниммум 3 символа.";

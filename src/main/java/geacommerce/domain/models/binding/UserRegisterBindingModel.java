@@ -2,10 +2,7 @@ package geacommerce.domain.models.binding;
 
 import geacommerce.common.Constants;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class UserRegisterBindingModel {
 
@@ -65,7 +62,7 @@ public class UserRegisterBindingModel {
 
     @NotNull(message = Constants.NOT_NULL_REGISTER_PHONE_MESSAGE)
     @NotEmpty(message = Constants.NOT_EMPTY_REGISTER_PHONE_MESSAGE)
-    @Size(min = 9, max = 9, message = Constants.USER_REGISTER_PHONE_SIZE_MESSAGE)
+    @Pattern(regexp = "\\d{9}", message = Constants.USER_REGISTER_PHONE_SIZE_MESSAGE)
     public String getPhoneNumber() {
         return this.phoneNumber;
     }
