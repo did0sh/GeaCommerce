@@ -15,13 +15,23 @@
 
             <div class="col-sm-4 col-md-7 justify-content-center" style="color: orangered;">
                 <blockquote>
+                    <i class="fas fa-user-circle"></i>
+                    <th:block th:text="${session.name} + ' ' + ${session.lastName} + ' - Администратор'"/>
+                    <hr/>
+                </blockquote>
+                <blockquote>
+                    <i class="fas fa-envelope"></i>
+                    <th:block th:text="${session.email}"/>
+                    <hr/>
+                </blockquote>
+                <blockquote>
+                    <i class="fas fa-phone"></i>
+                    <th:block th:text="${session.phone}"/>
                     <hr>
-                    <i class="fas fa-user-circle"></i> <th:block th:text="${session.name} + ' ' + ${session.lastName} + ' - Администратор'"/>
-                    <hr>
-                    <i class="fas fa-envelope"></i> <th:block th:text="${session.email}"/>
-                    <hr>
-                    <i class="fas fa-phone"></i> <th:block th:text="${session.phone}"/>
-                    <hr>
+                    <i class="fas fa-shopping-cart"></i>
+                    <a th:href="@{/inquiries/details}">
+                        <th:block th:text="${'Запитвания: ' + session.inquiries}"/>
+                    </a>
                 </blockquote>
             </div>
         </div>

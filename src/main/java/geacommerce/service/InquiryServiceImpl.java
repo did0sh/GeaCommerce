@@ -7,6 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class InquiryServiceImpl implements InquiryService {
     private final ModelMapper modelMapper;
@@ -30,5 +33,13 @@ public class InquiryServiceImpl implements InquiryService {
         }
 
         return true;
+    }
+
+    @Override
+    public List<InquiryServiceModel> findAllInquiries() {
+        return this.inquiryRepository.findAll()
+                .stream()
+                .map(inquiry -> this.modelMapper.map(inquiry, InquiryServiceModel.class))
+                .collect(Collectors.toList());
     }
 }
