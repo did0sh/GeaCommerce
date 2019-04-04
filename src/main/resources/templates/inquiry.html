@@ -1,0 +1,63 @@
+<!--suppress ALL -->
+<th:block th:fragment>
+    <div class="container bg-light">
+        <article class="card-body mx-auto" style="max-width: 600px;">
+            <th:block th:if="${sentInquiry == true}">
+                <h3 style="color:#0fad00;" class="text-center">Запитването Ви беше изпратено успешно!</h3>
+                <meta http-equiv="refresh" th:attr="content=${'2; url=/'}"/>
+            </th:block>
+            <th:block th:unless="${sentInquiry == true}">
+                <th:block th:if="${sentInquiry == false}">
+                    <h3 style="color:#ff0000" class="text-center">Неуспешно запитване!</h3>
+                    <p class="text-center">Моля, въведете валидни данни!</p>
+                </th:block>
+                <th:block th:if="${sentInquiry == null}">
+                    <h5 class="text-center">Изпратете Вашето запитване!</h5>
+                    <p class="text-center">Форма за контакт:</p>
+                </th:block>
+
+
+                <form th:action="@{/inquiry}" th:method="post" th:object="${inquiryModel}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('*')}" th:text="${error}" th:class="text-danger"/>
+                    </ul>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Име" title="" type="text" name="userName"
+                               required="required"
+                               th:field="*{userName}"
+                               oninvalid="this.setCustomValidity('Името трябва да е между 2 и 20 символа.')"
+                               oninput="this.setCustomValidity('')">
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input formnovalidate class="form-control" placeholder="Имейл адрес" title="" type="text"
+                               name="userEmail" required="required" th:field="*{userEmail}"
+                               oninvalid="this.setCustomValidity('Моля попълнете полето с валиден имейл.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-comment-dots"></i> </span>
+                        </div>
+                        <textarea class="form-control" placeholder="Съобщение" title="" name="message"
+                               required="required" th:field="*{message}" rows="5"
+                               oninvalid="this.setCustomValidity('Моля попълнете полето.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Изпрати</button>
+                    </div>
+                </form>
+            </th:block>
+        </article>
+    </div>
+</th:block>
+<hr/>
