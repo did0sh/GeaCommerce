@@ -36,6 +36,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                         </div>
+
                         <input formnovalidate class="form-control" placeholder="Имейл адрес" title="" type="text"
                                name="userEmail" required="required" th:field="*{userEmail}"
                                oninvalid="this.setCustomValidity('Моля попълнете полето с валиден имейл.')"
@@ -47,9 +48,9 @@
                             <span class="input-group-text"> <i class="fas fa-comment-dots"></i> </span>
                         </div>
                         <textarea class="form-control" placeholder="Съобщение" title="" name="message"
-                               required="required" th:field="*{message}" rows="5"
-                               oninvalid="this.setCustomValidity('Моля попълнете полето.')"
-                               oninput="this.setCustomValidity('')"/>
+                                  required="required" th:field="*{message}" rows="5"
+                                  oninvalid="this.setCustomValidity('Моля попълнете полето.')"
+                                  oninput="this.setCustomValidity('')"/>
                     </div> <!-- form-group// -->
 
                     <div class="form-group">

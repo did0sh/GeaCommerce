@@ -9,4 +9,6 @@ public interface InquiryService {
     boolean saveInquiry(InquiryServiceModel inquiryServiceModel);
 
     List<InquiryServiceModel> findAllInquiries();
+
+    boolean readInquiry(String id);
 }

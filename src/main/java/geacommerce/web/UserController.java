@@ -4,6 +4,7 @@ import geacommerce.domain.models.binding.UserLoginBindingModel;
 import geacommerce.domain.models.binding.UserRegisterBindingModel;
 import geacommerce.domain.models.service.CartServiceModel;
 import geacommerce.domain.models.service.UserServiceModel;
+import geacommerce.service.InquiryService;
 import geacommerce.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,14 @@ import javax.validation.Validator;
 public class UserController extends BaseController {
 
     private final UserService userService;
+    private final InquiryService inquiryService;
     private final ModelMapper modelMapper;
     private final Validator validator;
 
     @Autowired
-    public UserController(UserService userService, ModelMapper modelMapper, Validator validator) {
+    public UserController(UserService userService, InquiryService inquiryService, ModelMapper modelMapper, Validator validator) {
         this.userService = userService;
+        this.inquiryService = inquiryService;
         this.modelMapper = modelMapper;
         this.validator = validator;
     }
@@ -96,6 +99,8 @@ public class UserController extends BaseController {
 
         CartServiceModel cartServiceModel = new CartServiceModel();
         session.setAttribute("cart", cartServiceModel);
+
+        session.setAttribute("inquiries", this.inquiryService.findAllInquiries().size());
         return super.redirect("/");
     }
 

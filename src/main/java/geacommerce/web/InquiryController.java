@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.Validator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,16 +25,22 @@ public class InquiryController extends BaseController {
 
     private final InquiryService inquiryService;
     private final ModelMapper modelMapper;
+    private final Validator validator;
 
     @Autowired
-    public InquiryController(InquiryService inquiryService, ModelMapper modelMapper) {
+    public InquiryController(InquiryService inquiryService, ModelMapper modelMapper, Validator validator) {
         this.inquiryService = inquiryService;
         this.modelMapper = modelMapper;
+        this.validator = validator;
     }
 
     @RequestMapping("/inquiry")
-    public ModelAndView inquiry(@ModelAttribute(name = "inquiryModel")InquiryBindingModel model, HttpSession session) {
-        if(session.getAttribute("role") != "Admin"){
+    public ModelAndView inquiry(@ModelAttribute(name = "inquiryModel") InquiryBindingModel model, HttpSession session) {
+        if (session.getAttribute("role") == "Guest") {
+            this.setDisabledFieldsForGuestUser(session, model);
+            return super.view("inquiry", "inquiryModel", model);
+
+        } else if (session.getAttribute("role") == null) {
             return super.view("inquiry");
         }
 
@@ -40,11 +48,11 @@ public class InquiryController extends BaseController {
     }
 
     @PostMapping("/inquiry")
-    public ModelAndView inquiryConfirm(@Valid @ModelAttribute(name = "inquiryModel")InquiryBindingModel model, BindingResult result) {
-        if (!result.hasErrors()){
+    public ModelAndView inquiryConfirm(@Valid @ModelAttribute(name = "inquiryModel") InquiryBindingModel model, BindingResult result, HttpSession session) {
+        if (!result.hasErrors()) {
             InquiryServiceModel inquiryServiceModel = this.modelMapper.map(model, InquiryServiceModel.class);
 
-            if (this.inquiryService.saveInquiry(inquiryServiceModel)){
+            if (this.inquiryService.saveInquiry(inquiryServiceModel)) {
                 return super.view("inquiry", "sentInquiry", true);
             }
         }
@@ -57,11 +65,30 @@ public class InquiryController extends BaseController {
         List<InquiryViewModel> allInquiries = this.inquiryService.findAllInquiries()
                 .stream().map(inquiryServiceModel -> this.modelMapper.map(inquiryServiceModel, InquiryViewModel.class))
                 .collect(Collectors.toList());
-        if(session.getAttribute("role") == "Admin"){
+
+        if (session.getAttribute("role") == "Admin") {
+            session.setAttribute("inquiries", allInquiries.size());
             return super.view("inquiries-details", "allInquiries", allInquiries);
         }
 
         return super.redirect("/");
+    }
+
+    @PostMapping(value = "/inquiries/details/{id}", params = "action=read")
+    public ModelAndView inquiriesReadConfirm(@PathVariable(name = "id") String messageId, HttpSession session) {
+        this.inquiryService.readInquiry(messageId);
+        return super.redirect("/inquiries/details");
+
+    }
+
+    private void setDisabledFieldsForGuestUser(HttpSession session, InquiryBindingModel model) {
+        String firstName = (String) session.getAttribute("name");
+        String lastName = (String) session.getAttribute("lastName");
+        String email = (String) session.getAttribute("email");
+
+        String userName = firstName.concat(" ").concat(lastName);
+        model.setUserName(userName);
+        model.setUserEmail(email);
     }
 
 }

@@ -24,7 +24,7 @@ public class Inquiry extends BaseEntity {
         this.userName = userName;
     }
 
-    @Column(name = "user_email", nullable = false, unique = true)
+    @Column(name = "user_email", nullable = false)
     public String getUserEmail() {
         return this.userEmail;
     }

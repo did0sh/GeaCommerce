@@ -2,11 +2,20 @@ package geacommerce.domain.models.service;
 
 public class InquiryServiceModel {
 
+    private String id;
     private String userName;
     private String userEmail;
     private String message;
 
     public InquiryServiceModel() {
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserName() {

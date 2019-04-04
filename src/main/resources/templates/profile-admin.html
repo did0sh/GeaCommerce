@@ -29,9 +29,17 @@
                     <th:block th:text="${session.phone}"/>
                     <hr>
                     <i class="fas fa-shopping-cart"></i>
-                    <a th:href="@{/inquiries/details}">
-                        <th:block th:text="${'Запитвания: ' + session.inquiries}"/>
-                    </a>
+                    <th:block th:if="${session.inquiries == null}">
+                        <a th:href="@{/inquiries/details}">
+                            Запитвания: 0
+                        </a>
+                    </th:block>
+
+                    <th:block th:unless="${session.inquiries == null}">
+                        <a th:href="@{/inquiries/details}">
+                            <th:block th:text="${'Запитвания: ' + session.inquiries}"/>
+                        </a>
+                    </th:block>
                 </blockquote>
             </div>
         </div>

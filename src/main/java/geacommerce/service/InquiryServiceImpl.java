@@ -42,4 +42,18 @@ public class InquiryServiceImpl implements InquiryService {
                 .map(inquiry -> this.modelMapper.map(inquiry, InquiryServiceModel.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public boolean readInquiry(String id) {
+        try {
+            this.inquiryRepository.deleteById(id);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+
+    }
 }
