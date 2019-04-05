@@ -5,6 +5,8 @@ import geacommerce.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -61,5 +63,11 @@ public class OrderController extends BaseController {
         }
 
         return super.redirect("/");
+    }
+
+    @PostMapping(value = "/orders/{id}", params = "action=complete")
+    public ModelAndView completeOrder(@PathVariable(name = "id") String orderId){
+        this.orderService.completeOrder(orderId);
+        return super.redirect("/orders");
     }
 }

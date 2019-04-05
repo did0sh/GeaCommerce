@@ -31,7 +31,12 @@
                 <h5>Полезни линкове</h5>
                 <p><a class="text-muted" th:href="@{/info}">За нас</a></p>
                 <p><a class="text-muted" th:href="@{/our-shops}">Нашите магазини</a></p>
-                <p><a class="text-muted" th:href="@{/inquiry}">Запитване</a></p>
+                <th:block th:if="${session.role == 'Admin'}">
+                    <p><a class="text-muted" th:href="@{/inquiries/details}">Запитвания</a></p>
+                </th:block>
+                <th:block th:unless="${session.role == 'Admin'}">
+                    <p><a class="text-muted" th:href="@{/inquiry}">Запитване</a></p>
+                </th:block>
                 <p><a class="text-muted" th:href="@{/privacy}">Права и задължения</a></p>
             </div>
             <div class="col-6 col-md-3">

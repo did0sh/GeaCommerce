@@ -46,4 +46,13 @@ public class OrderServiceImpl implements OrderService {
     public Object[][] getOrderProducts() {
         return this.orderRepository.getOrderProductAmountAndProductName();
     }
+
+    @Override
+    public void completeOrder(String orderId) {
+        try {
+            this.orderRepository.deleteById(orderId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

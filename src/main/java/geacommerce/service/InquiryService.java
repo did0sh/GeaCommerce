@@ -10,5 +10,5 @@ public interface InquiryService {
 
     List<InquiryServiceModel> findAllInquiries();
 
-    boolean readInquiry(String id);
+    void readInquiry(String id);
 }

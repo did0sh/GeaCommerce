@@ -4,7 +4,7 @@
         <article class="card-body mx-auto" style="max-width: 600px;">
             <th:block th:if="${sentInquiry == true}">
                 <h3 style="color:#0fad00;" class="text-center">Запитването Ви беше изпратено успешно!</h3>
-                <meta http-equiv="refresh" th:attr="content=${'2; url=/'}"/>
+                <meta http-equiv="refresh" th:attr="content=${'1.5; url=/'}"/>
             </th:block>
             <th:block th:unless="${sentInquiry == true}">
                 <th:block th:if="${sentInquiry == false}">

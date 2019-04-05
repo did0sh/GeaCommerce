@@ -11,4 +11,6 @@ public interface OrderService {
     List<OrderServiceModel> findAllOrders();
 
     Object[][] getOrderProducts();
+
+    void completeOrder(String orderId);
 }

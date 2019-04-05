@@ -1,5 +1,17 @@
 <!--suppress ALL -->
 <th:block th:fragment>
+    <style type="text/css">
+        .modal-content {
+            background-color: #BBD6EC;
+        }
+
+        .modal-header {
+            background-color: #337AB7;
+            padding: 16px 16px;
+            color: #FFF;
+            border-bottom: 2px dashed #337AB7;
+        }
+    </style>
     <div class="container" th:object="${product}">
         <th:block th:if="${addedToCart} == false">
             <h3 style="color:#ff0000" class="text-center mt-2">Неуспешно добавяне!</h3>

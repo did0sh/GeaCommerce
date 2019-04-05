@@ -44,16 +44,11 @@ public class InquiryServiceImpl implements InquiryService {
     }
 
     @Override
-    public boolean readInquiry(String id) {
+    public void readInquiry(String id) {
         try {
             this.inquiryRepository.deleteById(id);
-
         }catch (Exception e){
             e.printStackTrace();
-            return false;
         }
-
-        return true;
-
     }
 }

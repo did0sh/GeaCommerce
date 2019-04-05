@@ -36,7 +36,7 @@
                             <th:block th:each="inquiry, iterStat : ${allInquiries}" th:object="${inquiry}">
 
                                 <tr>
-                                    <td th:text="${inquiry.userName}"></td>
+                                    <td th:text="${iterStat.index + 1} + '. ' + ${inquiry.userName}"></td>
                                     <td th:text="${inquiry.userEmail}"></td>
 
                                     <th:block th:if="${inquiry.message.length() <= 30}">
@@ -106,7 +106,7 @@
                                             <div class="modal-body col-md-12 col-lg-12">
                                                 <div class="col-xs-4">
                                                     Отбелязването на съобщението като прочетено, ще го изтрие
-                                                    автоматично.
+                                                    автоматично.<br/>
                                                     Сигурни ли сте, че искате това?
                                                 </div>
                                             </div>

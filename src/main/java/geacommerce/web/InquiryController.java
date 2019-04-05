@@ -75,7 +75,7 @@ public class InquiryController extends BaseController {
     }
 
     @PostMapping(value = "/inquiries/details/{id}", params = "action=read")
-    public ModelAndView inquiriesReadConfirm(@PathVariable(name = "id") String messageId, HttpSession session) {
+    public ModelAndView inquiriesReadConfirm(@PathVariable(name = "id") String messageId) {
         this.inquiryService.readInquiry(messageId);
         return super.redirect("/inquiries/details");
 
