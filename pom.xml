@@ -57,6 +57,7 @@
             <artifactId>commons-codec</artifactId>
             <version>LATEST</version>
         </dependency>
+
     </dependencies>
 
     <build>

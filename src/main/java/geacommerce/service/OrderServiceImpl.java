@@ -7,6 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
@@ -29,5 +32,18 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return true;
+    }
+
+    @Override
+    public List<OrderServiceModel> findAllOrders() {
+        return this.orderRepository.findAll()
+                .stream()
+                .map(order -> this.modelMapper.map(order, OrderServiceModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Object[][] getOrderProducts() {
+        return this.orderRepository.getOrderProductAmountAndProductName();
     }
 }

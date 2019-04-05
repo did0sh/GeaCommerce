@@ -15,7 +15,7 @@
                         <th>Име</th>
                         <th>Имейл</th>
                         <th>Адрес</th>
-                        <th>Дата</th>
+                        <th>Дата и час</th>
                         <th>Цена</th>
                         <th>Статус</th>
                         <th>Продукти</th>
@@ -24,16 +24,18 @@
                         </thead>
                         <tbody>
 
+                        <th:block th:each="order, iterStat : ${allOrders}" th:object="${order}">
                         <tr>
-                            <td>Mohsin Irshad</td>
-                            <td>isometric.mohsin@gmail.com</td>
-                            <td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-                            <td>01/02/2012</td>
-                            <td>12.50</td>
-                            <td>Приета</td>
-                            <td>6006 - 10бр, 5005 - 2бр.</td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-success btn-xs ml-2" data-title="Delete" data-toggle="modal" data-target="#delete" ><i class="fas fa-user-check"></i></button></p></td>
+                            <td th:text="${iterStat.index + 1} + '. ' + ${order.clientName}"></td>
+                            <td th:text="${order.clientEmail}"></td>
+                            <td th:text="${order.deliveryAddress}"></td>
+                            <td th:text="${#strings.replace(order.orderDate, 'T', ' ')}"></td>
+                            <td th:text="${order.orderPrice} + ' лв.'"></td>
+                            <td th:text="${order.status}"></td>
+                            <td th:text="${#strings.listJoin(order.formattedProducts.get(order.id), ' | ')}"></td>
+                            <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-success btn-xs ml-3" data-title="Delete" data-toggle="modal" data-target="#delete" ><i class="fas fa-user-check"></i></button></p></td>
                         </tr>
+                        </th:block>
 
                         </tbody>
 

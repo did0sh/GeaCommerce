@@ -1,4 +1,4 @@
-package geacommerce.domain.models.service;
+package geacommerce.domain.models.view;
 
 import geacommerce.domain.entities.Product;
 import geacommerce.domain.entities.User;
@@ -6,18 +6,20 @@ import geacommerce.domain.entities.User;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
-public class OrderServiceModel {
+public class OrderViewModel {
 
     private String id;
-    private User buyer;
+    private String clientName;
+    private String clientEmail;
     private BigDecimal orderPrice;
     private String status;
     private String deliveryAddress;
     private LocalDateTime orderDate;
-    private List<Product> boughtProducts;
+    private Map<String, List<String>> formattedProducts;
 
-    public OrderServiceModel() {
+    public OrderViewModel() {
     }
 
     public String getId() {
@@ -28,12 +30,20 @@ public class OrderServiceModel {
         this.id = id;
     }
 
-    public User getBuyer() {
-        return this.buyer;
+    public String getClientName() {
+        return this.clientName;
     }
 
-    public void setBuyer(User buyer) {
-        this.buyer = buyer;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public String getClientEmail() {
+        return this.clientEmail;
+    }
+
+    public void setClientEmail(String clientEmail) {
+        this.clientEmail = clientEmail;
     }
 
     public BigDecimal getOrderPrice() {
@@ -68,11 +78,11 @@ public class OrderServiceModel {
         this.orderDate = orderDate;
     }
 
-    public List<Product> getBoughtProducts() {
-        return this.boughtProducts;
+    public Map<String, List<String>> getFormattedProducts() {
+        return this.formattedProducts;
     }
 
-    public void setBoughtProducts(List<Product> boughtProducts) {
-        this.boughtProducts = boughtProducts;
+    public void setFormattedProducts(Map<String, List<String>> formattedProducts) {
+        this.formattedProducts = formattedProducts;
     }
 }
