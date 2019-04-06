@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.Validator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -87,16 +89,8 @@ public class UserController extends BaseController {
             return super.view("sign-in", "model", userLoginBindingModel, "loggedIn", false);
         }
 
+        this.addSessionAttributes(userServiceModel, session);
         session.setAttribute("user", userServiceModel);
-        session.setAttribute("name", userServiceModel.getFirstName());
-        session.setAttribute("lastName", userServiceModel.getLastName());
-        session.setAttribute("address", userServiceModel.getAddress());
-        session.setAttribute("email", userServiceModel.getEmail());
-        session.setAttribute("role", userServiceModel.getRole());
-        session.setAttribute("gender", userServiceModel.getGender());
-        session.setAttribute("phone", userServiceModel.getPhoneNumber());
-        session.setAttribute("town", userServiceModel.getTown());
-
         CartServiceModel cartServiceModel = new CartServiceModel();
         session.setAttribute("cart", cartServiceModel);
 
@@ -132,5 +126,22 @@ public class UserController extends BaseController {
             return super.redirect("/sign-in");
         }
         return super.view("profile-admin");
+    }
+
+    private void addSessionAttributes(UserServiceModel userServiceModel, HttpSession session){
+        Map<String, String> sessionMap = new LinkedHashMap<>(){{
+            put("name", userServiceModel.getFirstName());
+            put("lastName", userServiceModel.getLastName());
+            put("address", userServiceModel.getAddress());
+            put("email", userServiceModel.getEmail());
+            put("role", userServiceModel.getRole());
+            put("gender", userServiceModel.getGender());
+            put("phone", userServiceModel.getPhoneNumber());
+            put("town", userServiceModel.getTown());
+        }};
+
+        for (Map.Entry<String, String> entry : sessionMap.entrySet()) {
+            session.setAttribute(entry.getKey(), entry.getValue());
+        }
     }
 }

@@ -7,7 +7,7 @@ public interface CartService {
 
     boolean saveCart(CartServiceModel cartServiceModel);
 
-    boolean deleteCartProduct(String productId, String cartId, UserServiceModel userServiceModel);
+    void deleteCartProduct(String productId, String cartId, UserServiceModel userServiceModel);
 
     CartServiceModel findCartById(String id);
 }

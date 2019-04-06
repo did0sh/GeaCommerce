@@ -9,7 +9,7 @@ public abstract class BaseEntity {
 
     private String id;
 
-    public BaseEntity() {
+    BaseEntity() {
     }
 
     @Id

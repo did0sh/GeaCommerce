@@ -13,7 +13,7 @@ public interface ProductService {
 
     ProductServiceModel findProductById(String id);
 
-    boolean deleteProductById(String id);
+    void deleteProductById(String id);
 
     void updateProduct(ProductServiceModel productServiceModel);
 

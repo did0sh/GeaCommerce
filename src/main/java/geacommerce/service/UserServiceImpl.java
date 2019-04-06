@@ -1,6 +1,5 @@
 package geacommerce.service;
 
-import geacommerce.domain.entities.Cart;
 import geacommerce.domain.entities.Role;
 import geacommerce.domain.entities.User;
 import geacommerce.domain.models.service.UserServiceModel;
@@ -26,7 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean registerUser(UserServiceModel userServiceModel) {
+    public void registerUser(UserServiceModel userServiceModel) {
         try {
             User user = this.modelMapper.map(userServiceModel, User.class);
             user.setPassword(DigestUtils.sha256Hex(userServiceModel.getPassword()));
@@ -41,10 +40,7 @@ public class UserServiceImpl implements UserService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
-
-        return true;
     }
 
     @Override

@@ -4,9 +4,7 @@ import geacommerce.domain.entities.Product;
 import geacommerce.domain.entities.User;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CartServiceModel {

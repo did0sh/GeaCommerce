@@ -1,7 +1,6 @@
 package geacommerce.web;
 
 
-import geacommerce.domain.models.service.ProductServiceModel;
 import geacommerce.domain.models.view.ProductViewModel;
 import geacommerce.service.ProductService;
 import org.modelmapper.ModelMapper;

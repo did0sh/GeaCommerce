@@ -1,5 +1,7 @@
 package geacommerce.domain.models.binding;
 
+import geacommerce.common.Constants;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -51,7 +53,7 @@ public class ProductAddToCartBindingModel {
     }
 
     @NotNull
-    @Min(value = 1, message = "Моля попълнете полето с валиден брой.")
+    @Min(value = 1, message = Constants.ADD_TO_CART_MINIMUM_QUANTITY)
     public Integer getAmount() {
         return this.amount;
     }

@@ -9,7 +9,6 @@ import geacommerce.domain.models.service.CartServiceModel;
 import geacommerce.domain.models.service.ProductServiceModel;
 import geacommerce.domain.models.service.UserServiceModel;
 import geacommerce.domain.models.view.ProductViewModel;
-import geacommerce.service.CartService;
 import geacommerce.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +33,12 @@ import java.util.stream.Collectors;
 public class ProductController extends BaseController {
 
     private final ProductService productService;
-    private final CartService cartService;
     private final ModelMapper modelMapper;
     private final Validator validator;
 
     @Autowired
-    public ProductController(ProductService productService, CartService cartService, ModelMapper modelMapper, Validator validator) {
+    public ProductController(ProductService productService, ModelMapper modelMapper, Validator validator) {
         this.productService = productService;
-        this.cartService = cartService;
         this.modelMapper = modelMapper;
         this.validator = validator;
     }

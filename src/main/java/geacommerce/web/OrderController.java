@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -56,7 +53,8 @@ public class OrderController extends BaseController {
 
                     model.setFormattedProducts(formattedProducts);
                     return model;
-                }).collect(Collectors.toList());
+                }).sorted(Comparator.comparing(OrderViewModel::getOrderDate))
+                  .collect(Collectors.toList());
 
         if(session.getAttribute("role") == "Admin"){
             return super.view("orders", "allOrders", allOrders);

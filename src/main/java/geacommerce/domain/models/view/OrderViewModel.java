@@ -1,8 +1,5 @@
 package geacommerce.domain.models.view;
 
-import geacommerce.domain.entities.Product;
-import geacommerce.domain.entities.User;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;

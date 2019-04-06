@@ -1,7 +1,6 @@
 package geacommerce.domain.models.binding;
 
 import geacommerce.common.Constants;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

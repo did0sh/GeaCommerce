@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -68,15 +67,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean deleteProductById(String id) {
+    public void deleteProductById(String id) {
         try {
             this.productRepository.deleteById(id);
         }catch (Exception e){
             e.printStackTrace();
-            return false;
         }
-
-        return true;
     }
 
     @Override
@@ -107,6 +103,8 @@ public class ProductServiceImpl implements ProductService {
 
             //set cart total price
             cart.setTotalPrice(productForCart.getPrice().multiply(BigDecimal.valueOf(productForCart.getAmount())));
+
+            //save cart & user
             this.cartRepository.saveAndFlush(cart);
             this.userRepository.save(cart.getUser());
 
@@ -114,6 +112,7 @@ public class ProductServiceImpl implements ProductService {
 
         } else {
 
+            //update cart product amount if product already exists
             if (userCart.getProducts().containsKey(productForCart.getId())){
                 Product foundProduct = userCart.getProducts().get(productForCart.getId());
                 foundProduct.setCartAmount(foundProduct.getCartAmount() + productForCart.getAmount());
@@ -123,8 +122,10 @@ public class ProductServiceImpl implements ProductService {
                 userCart.getProducts().put(productDatabase.getId(), productDatabase);
             }
 
+            //calculate cart total price
             BigDecimal totalPrice = this.calculateTotalPrice(userCart);
 
+            //save cart & user
             cart.getUser().setCart(userCart);
             userCart.setTotalPrice(totalPrice);
             this.cartRepository.saveAndFlush(userCart);

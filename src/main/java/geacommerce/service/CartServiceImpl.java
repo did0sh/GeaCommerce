@@ -38,7 +38,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public boolean deleteCartProduct(String productId, String cartId, UserServiceModel userServiceModel) {
+    public void deleteCartProduct(String productId, String cartId, UserServiceModel userServiceModel) {
         try {
             this.cartRepository.deleteCartProduct(productId);
 
@@ -53,11 +53,7 @@ public class CartServiceImpl implements CartService {
 
         }catch (Exception e){
             e.printStackTrace();
-            return false;
         }
-
-        return true;
-
     }
 
     @Override

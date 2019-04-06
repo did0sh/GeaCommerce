@@ -26,6 +26,9 @@ public class Constants {
 
     public static final String USER_REGISTER_LOGIN_EMAIL_MESSAGE = "Имейлът трябва да е валиден.";
     public static final String USER_LOGIN_REGISTER_PASSWORD_INVALID_MESSAGE = "Паролата трябва съдържа миниммум 3 символа.";
+
+    public static final String ADD_TO_CART_MINIMUM_QUANTITY = "Моля попълнете полето с валиден брой.";
+
     public static final String INQUIRY_MESSAGE_SIZE = "Съобщението трябва да е максимум 500 символа.";
 
     public static final String SEARCH_PATTERN_MESSAGE = "Специални символи не са позволени.";

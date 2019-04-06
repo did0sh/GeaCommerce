@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.validation.Validator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,13 +24,11 @@ public class InquiryController extends BaseController {
 
     private final InquiryService inquiryService;
     private final ModelMapper modelMapper;
-    private final Validator validator;
 
     @Autowired
-    public InquiryController(InquiryService inquiryService, ModelMapper modelMapper, Validator validator) {
+    public InquiryController(InquiryService inquiryService, ModelMapper modelMapper) {
         this.inquiryService = inquiryService;
         this.modelMapper = modelMapper;
-        this.validator = validator;
     }
 
     @RequestMapping("/inquiry")
