@@ -9,11 +9,13 @@ import geacommerce.repository.ProductRepository;
 import geacommerce.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
             ProductServiceModel model = this.modelMapper
                     .map(productById, ProductServiceModel.class);
             return model;
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
@@ -70,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProductById(String id) {
         try {
             this.productRepository.deleteById(id);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -93,7 +95,7 @@ public class ProductServiceImpl implements ProductService {
                 .stream().filter(cart1 -> cart1.getUser().getId().equals(cart.getUser().getId()))
                 .findFirst().orElse(null);
 
-        if (userCart == null){
+        if (userCart == null) {
             //add cart for user
             cart.getUser().setCart(cart);
 
@@ -113,7 +115,7 @@ public class ProductServiceImpl implements ProductService {
         } else {
 
             //update cart product amount if product already exists
-            if (userCart.getProducts().containsKey(productForCart.getId())){
+            if (userCart.getProducts().containsKey(productForCart.getId())) {
                 Product foundProduct = userCart.getProducts().get(productForCart.getId());
                 foundProduct.setCartAmount(foundProduct.getCartAmount() + productForCart.getAmount());
             } else {
@@ -135,7 +137,21 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    private BigDecimal calculateTotalPrice(Cart userCart){
+    //set discount in every 24h
+    @Scheduled(fixedRate = 86400000)
+    void generateDiscounts() {
+        BigDecimal discount = BigDecimal.valueOf(0.95);
+        List<Product> allProducts = this.productRepository.findAll();
+        Random random = new Random();
+        int randomProductNumber = random.nextInt(allProducts.size());
+
+        Product randomPickedProduct = allProducts.get(randomProductNumber);
+        randomPickedProduct.setPrice(randomPickedProduct.getPrice().multiply(discount));
+        
+        this.productRepository.save(randomPickedProduct);
+    }
+
+    private BigDecimal calculateTotalPrice(Cart userCart) {
         BigDecimal totalPrice = BigDecimal.ZERO;
 
         for (Product userCartProduct : userCart.getProducts().values()) {

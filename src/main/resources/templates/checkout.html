@@ -3,7 +3,7 @@
     <div class='container'>
         <th:block th:if="${orderSuccessful == true}">
             <h3 style="color:#0fad00" class="text-center mt-3">Вашата поръчка е приета!</h3>
-            <p class="text-center">Тя ще бъде доставена в срок до 3 работни дни!</p>
+            <p class="text-center">Тя ще бъде доставена в зависимост от наличността на продуктите (макс. 10 дни)!</p>
         </th:block>
         <th:block th:unless="${orderSuccessful == true}">
             <div class='row' style='padding-top:25px; padding-bottom:25px;'>
@@ -141,7 +141,9 @@
                                                         <br/>
                                                         <div style="text-align: left;"><br/>
                                                             <blockquote><strong>ВАЖНО: </strong>Моля, имайте предвид, че поръчката се заплаща единствено с наложен платеж.</blockquote>
-                                                            При неспазване на срока на доставка (3 дни), моля <a th:href="@{/inquiry}">свържете се с нас</a>!
+                                                            <blockquote><strong>ВАЖНО: </strong>Срокът на доставка зависи от наличността на продуктите: При наличност на всички поръчани продукти е <strong>3 дeнa</strong>.
+                                                            В другите случаи е колкото на продукта с <strong>най-дълъг</strong> период на доставка.</blockquote>
+                                                            При неспазване на срока на доставка, моля <a th:href="@{/inquiry}">свържете се с нас</a>!
                                                         </div>
                                                     </div>
                                                 </div>
