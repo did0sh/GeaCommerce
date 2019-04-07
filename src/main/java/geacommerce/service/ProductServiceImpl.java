@@ -138,7 +138,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     //set discount in every 24h
-    @Scheduled(fixedRate = 86400000)
+    @Scheduled(fixedRate = 86_400_000L)
     void generateDiscounts() {
         BigDecimal discount = BigDecimal.valueOf(0.95);
         List<Product> allProducts = this.productRepository.findAll();

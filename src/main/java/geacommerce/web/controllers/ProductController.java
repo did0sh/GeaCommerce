@@ -13,6 +13,7 @@ import geacommerce.service.ProductService;
 import geacommerce.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -57,6 +58,7 @@ public class ProductController extends BaseController {
 
     @RequestMapping("/add-product")
     @PageTitle(value = "Добави продукт")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView addProduct(HttpSession session, @ModelAttribute(name = "product") ProductAddBindingModel productAddBindingModel) {
         if (session.getAttribute("name") == null || session.getAttribute("role") == "Guest") {
             return super.redirect("/sign-in");
@@ -66,6 +68,7 @@ public class ProductController extends BaseController {
 
     @PostMapping("/add-product")
     @PageTitle(value = "Добави продукт")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView addProductConfirm(@Valid @ModelAttribute(name = "product") ProductAddBindingModel productAddBindingModel, BindingResult result) {
         ProductServiceModel productServiceModel =
                 this.modelMapper.map(productAddBindingModel, ProductServiceModel.class);
@@ -140,6 +143,7 @@ public class ProductController extends BaseController {
 
     @PostMapping(value = "/details/{id}", params = "action=addItem")
     @PageTitle(value = "Детайли")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView addProductToCart(@PathVariable(name = "id") String productId,
                                          @Valid @ModelAttribute(name = "product") ProductAddToCartBindingModel model, BindingResult result,
                                          HttpSession session, RedirectAttributes redirectAttributes) {
@@ -186,6 +190,7 @@ public class ProductController extends BaseController {
 
     @PostMapping(value = "/details/{id}", params = "action=delete")
     @PageTitle(value = "Детайли")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView deleteProduct(@PathVariable(name = "id") String productId) {
         this.productService.deleteProductById(productId);
         return super.redirect("/products/all");
@@ -193,12 +198,14 @@ public class ProductController extends BaseController {
 
     @PostMapping(value = "/details/{id}", params = "action=update")
     @PageTitle(value = "Детайли")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView updateProduct(@PathVariable(name = "id") String productId) {
         return super.redirect("/products/update-product/" + productId);
     }
 
     @RequestMapping("/update-product/{id}")
     @PageTitle(value = "Актуализация")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView update(@PathVariable(name = "id") String updateProductId, HttpSession session) {
         if (session.getAttribute("role") == "Admin") {
             ProductUpdateBindingModel model =
@@ -210,6 +217,7 @@ public class ProductController extends BaseController {
 
     @PostMapping("/update-product/{id}")
     @PageTitle(value = "Актуализация")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView updateConfirm(@PathVariable(name = "id") String updateProductId,
                                       @Valid @ModelAttribute(name = "product") ProductUpdateBindingModel productUpdateBindingModel,
                                       BindingResult result) {

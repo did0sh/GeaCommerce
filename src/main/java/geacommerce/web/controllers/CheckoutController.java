@@ -14,6 +14,7 @@ import geacommerce.service.UserService;
 import geacommerce.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +47,7 @@ public class CheckoutController extends BaseController {
 
     @RequestMapping("/checkout")
     @PageTitle(value = "Потвърждаване на поръчка")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView checkout(HttpSession session){
         if (session.getAttribute("role") == "Guest" && session.getAttribute("cartID") != null && session.getAttribute("checkoutClicked") != null){
             String cartID = (String) session.getAttribute("cartID");
@@ -62,6 +64,7 @@ public class CheckoutController extends BaseController {
 
     @PostMapping("/checkout")
     @PageTitle(value = "Потвърждаване на поръчка")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView checkoutConfirm(HttpSession session){
         String cartID = (String) session.getAttribute("cartID");
         String userEmail = (String) session.getAttribute("email");

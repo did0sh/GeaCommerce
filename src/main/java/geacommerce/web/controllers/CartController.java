@@ -9,6 +9,7 @@ import geacommerce.service.ProductService;
 import geacommerce.service.UserService;
 import geacommerce.web.annotations.PageTitle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +38,7 @@ public class CartController extends BaseController {
     @RequestMapping("/cart/{id}")
     @SuppressWarnings("unchecked")
     @PageTitle(value = "Количка")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView cart(@PathVariable(name = "id") String userId, HttpSession session, RedirectAttributes redirectAttributes) {
         if (session.getAttribute("role") != "Guest"){
             return super.redirect("/");
@@ -63,6 +65,7 @@ public class CartController extends BaseController {
     @PostMapping(value = "/cart/{id}", params = "action=delete")
     @SuppressWarnings("unchecked")
     @PageTitle(value = "Количка")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView deleteCartProduct(@PathVariable(name = "id") String productId, HttpSession session){
         UserServiceModel userModel = (UserServiceModel)session.getAttribute("user");
         String userId = userModel.getId();
@@ -75,6 +78,7 @@ public class CartController extends BaseController {
 
     @PostMapping(value = "/cart/{id}", params = "action=checkout")
     @PageTitle(value = "Количка")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView checkout(@PathVariable(name = "id") String userId, HttpSession session){
         session.setAttribute("checkoutClicked", Boolean.TRUE);
         return super.redirect("/checkout");

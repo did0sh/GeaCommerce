@@ -5,6 +5,7 @@ import geacommerce.service.OrderService;
 import geacommerce.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,7 @@ public class OrderController extends BaseController {
 
     @RequestMapping("/orders")
     @PageTitle(value = "Поръчки")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView inquiry(HttpSession session) {
         List<OrderViewModel> allOrders = this.orderService.findAllOrders()
                 .stream().map(orderServiceModel -> {
@@ -67,6 +69,7 @@ public class OrderController extends BaseController {
 
     @PostMapping(value = "/orders/{id}", params = "action=complete")
     @PageTitle(value = "Поръчки")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView completeOrder(@PathVariable(name = "id") String orderId){
         this.orderService.completeOrder(orderId);
         return super.redirect("/orders");

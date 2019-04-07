@@ -7,6 +7,7 @@ import geacommerce.service.InquiryService;
 import geacommerce.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -62,6 +63,7 @@ public class InquiryController extends BaseController {
 
     @RequestMapping("/inquiries/details")
     @PageTitle(value = "Запитвания")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView inquiriesDetails(HttpSession session) {
         List<InquiryViewModel> allInquiries = this.inquiryService.findAllInquiries()
                 .stream().map(inquiryServiceModel -> this.modelMapper.map(inquiryServiceModel, InquiryViewModel.class))
@@ -77,6 +79,7 @@ public class InquiryController extends BaseController {
 
     @PostMapping(value = "/inquiries/details/{id}", params = "action=read")
     @PageTitle(value = "Запитвания")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView inquiriesReadConfirm(@PathVariable(name = "id") String messageId) {
         this.inquiryService.readInquiry(messageId);
         return super.redirect("/inquiries/details");
