@@ -147,7 +147,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product randomPickedProduct = allProducts.get(randomProductNumber);
         randomPickedProduct.setPrice(randomPickedProduct.getPrice().multiply(discount));
-        
+
         this.productRepository.save(randomPickedProduct);
     }
 
