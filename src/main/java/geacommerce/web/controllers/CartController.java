@@ -62,6 +62,7 @@ public class CartController extends BaseController {
 
     @PostMapping(value = "/cart/{id}", params = "action=delete")
     @SuppressWarnings("unchecked")
+    @PageTitle(value = "Количка")
     public ModelAndView deleteCartProduct(@PathVariable(name = "id") String productId, HttpSession session){
         UserServiceModel userModel = (UserServiceModel)session.getAttribute("user");
         String userId = userModel.getId();
@@ -73,6 +74,7 @@ public class CartController extends BaseController {
     }
 
     @PostMapping(value = "/cart/{id}", params = "action=checkout")
+    @PageTitle(value = "Количка")
     public ModelAndView checkout(@PathVariable(name = "id") String userId, HttpSession session){
         session.setAttribute("checkoutClicked", Boolean.TRUE);
         return super.redirect("/checkout");

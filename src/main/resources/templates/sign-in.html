@@ -2,43 +2,53 @@
 <th:block th:fragment>
     <div class="card bg-light">
         <article class="card-body mx-auto" style="max-width: 400px;">
-            <th:block th:if="${loggedIn == false}">
-                <h3 style="color:#ff0000" class="text-center">Неуспешно влизане!</h3>
-                <p class="text-center">Моля, въведете валидни данни!</p>
+            <th:block th:if="${loggedIn == true}">
+                <h3 style="color:#0fad00" class="text-center">Успешно влизане!</h3>
+                <meta http-equiv="refresh" th:attr="content=${'1; url=/'}"/>
             </th:block>
-            <th:block th:unless="${loggedIn == false}">
-                <h5 class="card-title mt-3 text-center">Влезте във Вашия профил!</h5>
-                <p class="text-center">Спестете време за пазаруване с личен профил!</p>
+            <th:block th:unless="${loggedIn == true}">
+                <th:block th:if="${loggedIn == null}">
+                    <h5 class="card-title mt-3 text-center">Влезте във Вашия профил!</h5>
+                    <p class="text-center">Спестете време за пазаруване с личен профил!</p>
+                </th:block>
+                <th:block th:if="${loggedIn == false}">
+                    <h3 style="color:#ff0000" class="text-center">Неуспешно влизане!</h3>
+                    <p class="text-center">Моля, въведете валидни данни!</p>
+                </th:block>
+
+                <form th:method="post" th:action="@{/sign-in}" th:object="${model}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('*')}" th:text="${error}" th:class="text-danger"/>
+                    </ul>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input formnovalidate class="form-control" placeholder="Имейл адрес" title="" type="text"
+                               name="email" required="required"
+                               th:field="*{email}"
+                               oninvalid="this.setCustomValidity('Моля попълнете полето с валиден имейл.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-key"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Парола" title="" type="password" name="password"
+                               required="required"
+                               th:field="*{password}"
+                               oninvalid="this.setCustomValidity('Моля попълнете полето.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Влез</button>
+                    </div> <!-- form-group// -->
+                    <p class="text-center">Нямаш профил? <a th:href="@{/create-account}">Създай</a></p>
+                </form>
+
             </th:block>
-            <form th:method="post" th:action="@{/sign-in}" th:object="${model}">
-                <ul>
-                    <li th:each="error : ${#fields.errors('*')}" th:text="${error}" th:class="text-danger"/>
-                </ul>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-                    </div>
-                    <input formnovalidate class="form-control" placeholder="Имейл адрес" title="" type="text" name="email" required="required"
-                           th:field="*{email}"
-                           oninvalid="this.setCustomValidity('Моля попълнете полето с валиден имейл.')"
-                           oninput="this.setCustomValidity('')"/>
-                </div> <!-- form-group// -->
-
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fas fa-key"></i> </span>
-                    </div>
-                    <input class="form-control" placeholder="Парола" title="" type="password" name="password" required="required"
-                           th:field="*{password}"
-                           oninvalid="this.setCustomValidity('Моля попълнете полето.')"
-                           oninput="this.setCustomValidity('')"/>
-                </div> <!-- form-group// -->
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block"> Влез</button>
-                </div> <!-- form-group// -->
-                <p class="text-center">Нямаш профил? <a th:href="@{/create-account}">Създай</a></p>
-            </form>
         </article>
     </div> <!-- card.// -->
 </th:block>

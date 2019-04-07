@@ -65,6 +65,7 @@ public class ProductController extends BaseController {
     }
 
     @PostMapping("/add-product")
+    @PageTitle(value = "Добави продукт")
     public ModelAndView addProductConfirm(@Valid @ModelAttribute(name = "product") ProductAddBindingModel productAddBindingModel, BindingResult result) {
         ProductServiceModel productServiceModel =
                 this.modelMapper.map(productAddBindingModel, ProductServiceModel.class);
@@ -138,6 +139,7 @@ public class ProductController extends BaseController {
     }
 
     @PostMapping(value = "/details/{id}", params = "action=addItem")
+    @PageTitle(value = "Детайли")
     public ModelAndView addProductToCart(@PathVariable(name = "id") String productId,
                                          @Valid @ModelAttribute(name = "product") ProductAddToCartBindingModel model, BindingResult result,
                                          HttpSession session, RedirectAttributes redirectAttributes) {
@@ -183,12 +185,14 @@ public class ProductController extends BaseController {
     }
 
     @PostMapping(value = "/details/{id}", params = "action=delete")
+    @PageTitle(value = "Детайли")
     public ModelAndView deleteProduct(@PathVariable(name = "id") String productId) {
         this.productService.deleteProductById(productId);
         return super.redirect("/products/all");
     }
 
     @PostMapping(value = "/details/{id}", params = "action=update")
+    @PageTitle(value = "Детайли")
     public ModelAndView updateProduct(@PathVariable(name = "id") String productId) {
         return super.redirect("/products/update-product/" + productId);
     }
@@ -205,6 +209,7 @@ public class ProductController extends BaseController {
     }
 
     @PostMapping("/update-product/{id}")
+    @PageTitle(value = "Актуализация")
     public ModelAndView updateConfirm(@PathVariable(name = "id") String updateProductId,
                                       @Valid @ModelAttribute(name = "product") ProductUpdateBindingModel productUpdateBindingModel,
                                       BindingResult result) {

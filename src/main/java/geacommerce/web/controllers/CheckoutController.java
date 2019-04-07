@@ -61,6 +61,7 @@ public class CheckoutController extends BaseController {
     }
 
     @PostMapping("/checkout")
+    @PageTitle(value = "Потвърждаване на поръчка")
     public ModelAndView checkoutConfirm(HttpSession session){
         String cartID = (String) session.getAttribute("cartID");
         String userEmail = (String) session.getAttribute("email");

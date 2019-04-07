@@ -47,6 +47,7 @@ public class InquiryController extends BaseController {
     }
 
     @PostMapping("/inquiry")
+    @PageTitle(value = "Запитване")
     public ModelAndView inquiryConfirm(@Valid @ModelAttribute(name = "inquiryModel") InquiryBindingModel model, BindingResult result, HttpSession session) {
         if (!result.hasErrors()) {
             InquiryServiceModel inquiryServiceModel = this.modelMapper.map(model, InquiryServiceModel.class);
@@ -75,6 +76,7 @@ public class InquiryController extends BaseController {
     }
 
     @PostMapping(value = "/inquiries/details/{id}", params = "action=read")
+    @PageTitle(value = "Запитвания")
     public ModelAndView inquiriesReadConfirm(@PathVariable(name = "id") String messageId) {
         this.inquiryService.readInquiry(messageId);
         return super.redirect("/inquiries/details");

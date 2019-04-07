@@ -41,6 +41,7 @@ public class HomeController extends BaseController {
     }
 
     @PostMapping("index")
+    @PageTitle(value = "Начало")
     public ModelAndView searchConfirm(@Valid @ModelAttribute(name = "searchModel") SearchBindingModel searchBindingModel,
                                       BindingResult result,
                                       HttpSession session) {

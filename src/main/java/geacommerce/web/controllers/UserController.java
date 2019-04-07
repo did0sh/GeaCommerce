@@ -53,6 +53,7 @@ public class UserController extends BaseController {
 
 
     @PostMapping("create-account")
+    @PageTitle(value = "Създай профил")
     public ModelAndView createAccountConfirm(@Valid @ModelAttribute(name = "bindingModel") UserRegisterBindingModel userRegisterBindingModel,
                                              BindingResult result) {
 
@@ -82,6 +83,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("sign-in")
+    @PageTitle(value = "Вход")
     public ModelAndView signInConfirm(@Valid @ModelAttribute(name = "model") UserLoginBindingModel userLoginBindingModel,
                                       BindingResult result,
                                       HttpSession session) {
@@ -98,11 +100,10 @@ public class UserController extends BaseController {
         session.setAttribute("cart", cartServiceModel);
 
         session.setAttribute("inquiries", this.inquiryService.findAllInquiries().size());
-        return super.redirect("/");
+        return super.view("sign-in", "loggedIn", true);
     }
 
     @RequestMapping("logout")
-    @PageTitle(value = "Изход")
     public ModelAndView logout(HttpSession session) {
         UserServiceModel user = (UserServiceModel) session.getAttribute("user");
         String cartID = (String) session.getAttribute("cartID");

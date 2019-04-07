@@ -66,6 +66,7 @@ public class OrderController extends BaseController {
     }
 
     @PostMapping(value = "/orders/{id}", params = "action=complete")
+    @PageTitle(value = "Поръчки")
     public ModelAndView completeOrder(@PathVariable(name = "id") String orderId){
         this.orderService.completeOrder(orderId);
         return super.redirect("/orders");

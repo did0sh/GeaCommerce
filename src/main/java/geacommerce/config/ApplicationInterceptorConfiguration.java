@@ -1,6 +1,6 @@
 package geacommerce.config;
 
-import geacommerce.interceptors.FaviconInterceptor;
+import geacommerce.interceptors.SessionTimerInterceptor;
 import geacommerce.interceptors.TitleInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,17 +11,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ApplicationInterceptorConfiguration implements WebMvcConfigurer {
 
     private final TitleInterceptor titleInterceptor;
-    private final FaviconInterceptor faviconInterceptor;
+    private final SessionTimerInterceptor sessionTimerInterceptor;
 
     @Autowired
-    public ApplicationInterceptorConfiguration(TitleInterceptor titleInterceptor, FaviconInterceptor faviconInterceptor) {
+    public ApplicationInterceptorConfiguration(TitleInterceptor titleInterceptor, SessionTimerInterceptor sessionTimerInterceptor) {
         this.titleInterceptor = titleInterceptor;
-        this.faviconInterceptor = faviconInterceptor;
+        this.sessionTimerInterceptor = sessionTimerInterceptor;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(this.titleInterceptor);
-        registry.addInterceptor(this.faviconInterceptor);
+        registry.addInterceptor(this.sessionTimerInterceptor);
     }
 }
