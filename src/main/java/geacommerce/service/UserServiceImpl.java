@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registerUser(UserServiceModel userServiceModel) {
+    public boolean registerUser(UserServiceModel userServiceModel) {
         try {
             User user = this.modelMapper.map(userServiceModel, User.class);
             user.setPassword(DigestUtils.sha256Hex(userServiceModel.getPassword()));
@@ -40,7 +40,9 @@ public class UserServiceImpl implements UserService {
 
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -67,14 +69,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeCart(UserServiceModel userServiceModel, String cartId) {
+    public boolean removeCart(UserServiceModel userServiceModel, String cartId) {
         User user = this.userRepository.findByEmail(userServiceModel.getEmail());
         if (user.getCart() != null) {
             user.getCart().setProducts(null);
             user.setCart(null);
             this.userRepository.save(user);
             this.cartRepository.deleteById(cartId);
+
+            return true;
         }
+
+        return false;
     }
 
     @Override

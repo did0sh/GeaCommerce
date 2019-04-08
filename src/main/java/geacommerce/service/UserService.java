@@ -4,7 +4,7 @@ import geacommerce.domain.models.service.UserServiceModel;
 
 public interface UserService {
 
-    void registerUser(UserServiceModel userServiceModel);
+    boolean registerUser(UserServiceModel userServiceModel);
 
     UserServiceModel loginUser(UserServiceModel userServiceModel);
 
@@ -12,7 +12,7 @@ public interface UserService {
 
     UserServiceModel findUserById(String id);
 
-    void removeCart(UserServiceModel userServiceModel, String cartId);
+    boolean removeCart(UserServiceModel userServiceModel, String cartId);
 
     UserServiceModel findUserByEmail(String email);
 }
