@@ -69,18 +69,27 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProductById(String id) {
+    public boolean deleteProductById(String id) {
         try {
             this.productRepository.deleteById(id);
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
+
+        return true;
     }
 
     @Override
-    public void updateProduct(ProductServiceModel productServiceModel) {
-        Product product = this.modelMapper.map(productServiceModel, Product.class);
-        this.productRepository.saveAndFlush(product);
+    public boolean updateProduct(ProductServiceModel productServiceModel) {
+        try {
+            Product product = this.modelMapper.map(productServiceModel, Product.class);
+            this.productRepository.saveAndFlush(product);
+        }catch (Exception e){
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -151,7 +160,8 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository.save(randomPickedProduct);
     }
 
-    private BigDecimal calculateTotalPrice(Cart userCart) {
+    @Override
+    public BigDecimal calculateTotalPrice(Cart userCart) {
         BigDecimal totalPrice = BigDecimal.ZERO;
 
         for (Product userCartProduct : userCart.getProducts().values()) {

@@ -23,11 +23,12 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class UserServiceTests {
-
     @Autowired
     UserService userService;
+
     @MockBean
     UserRepository mockUserRepository;
+
     @MockBean
     CartRepository mockCartRepository;
 
