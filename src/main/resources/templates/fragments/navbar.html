@@ -21,13 +21,13 @@
             <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/products/all}">Продукти</a>
             <th:block th:if="${session.role == 'Admin'}">
                 <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/orders}"><i class="fas fa-folder"></i> Поръчки </a>
-                <a class="py-2 d-none d-md-inline-block ml-5" th:href="@{/user/profile-admin}" th:text="'Админ: ' + ${session.name} + ' ' + ${session.lastName}"/>
+                <a class="py-2 d-none d-md-inline-block ml-5" th:href="@{/user/profile-admin}" th:utext="'Админ: ' + ${session.name} + ' ' + ${session.lastName}"/>
                 <a class="py-2 d-none d-md-inline-block ml-2" th:href="@{/products/add-product}">Добави продукт</a>
                 <a class="py-2 d-none d-md-inline-block ml-2" th:href="@{/logout}">Изход <i class="fas fa-sign-out-alt"></i></a>
             </th:block>
             <th:block th:if="${session.role == 'Guest'}">
                 <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/cart/{id}(id=${session.user.id})}"><i class="fas fa-shopping-cart"></i> Количка </a>
-                <a class="py-2 d-none d-md-inline-block ml-5" th:href="@{/user/profile}" th:text="${session.name} + ' ' + ${session.lastName}"/>
+                <a class="py-2 d-none d-md-inline-block ml-5" th:href="@{/user/profile}" th:utext="${session.name} + ' ' + ${session.lastName}"/>
                 <a class="py-2 d-none d-md-inline-block" th:href="@{/logout}">Изход <i class="fas fa-sign-out-alt"></i></a>
             </th:block>
             <th:block th:if="${session.role == null}">

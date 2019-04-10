@@ -109,20 +109,20 @@
                                                                           th:object="${product}">
                                                                     <tr>
                                                                         <td colspan="2">
-                                                                            <b th:text="'Име на продукта: '+ ${product.value.name}"></b>
+                                                                            <b th:utext="'Име на продукта: '+ ${product.value.name}"></b>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>
                                                                             <ul>
-                                                                                <li th:text="'Произход: ' + ${product.value.country}"></li>
-                                                                                <li th:text="'Производител: ' + ${product.value.manufacturer}"></li>
-                                                                                <li th:text="'Единична цена: ' + ${product.value.price} + ' лв.'"></li>
-                                                                                <li th:text="'Количество: ' + ${product.value.cartAmount} + ' бр.'"></li>
+                                                                                <li th:utext="'Произход: ' + ${product.value.country}"></li>
+                                                                                <li th:utext="'Производител: ' + ${product.value.manufacturer}"></li>
+                                                                                <li th:utext="'Единична цена: ' + ${product.value.price} + ' лв.'"></li>
+                                                                                <li th:utext="'Количество: ' + ${product.value.cartAmount} + ' бр.'"></li>
                                                                             </ul>
                                                                         </td>
                                                                         <td>
-                                                                            <b th:text="${product.value.price} * ${product.value.cartAmount} + ' лв.'"></b>
+                                                                            <b th:utext="${product.value.price} * ${product.value.cartAmount} + ' лв.'"></b>
                                                                         </td>
                                                                     </tr>
                                                                 </th:block>
@@ -131,7 +131,7 @@
                                                         <div class="col-md-9">
                                                             <div style="text-align: right;">
                                                                 <h3>Крайна сума + доставка</h3>
-                                                                <h3><span style="color:green;" th:text="${totalPrice} + 6.99 + ' лв.'"></span></h3>
+                                                                <h3><span style="color:green;" th:utext="${totalPrice} + 6.99 + ' лв.'"></span></h3>
                                                             </div>
                                                         </div>
                                                         <button type="submit" class="btn btn-success btn-lg"

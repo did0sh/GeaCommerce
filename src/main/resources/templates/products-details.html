@@ -20,7 +20,7 @@
         <th:block th:if="${onStock} == false">
             <h3 style="color:#ff0000" class="text-center mt-2">Неуспешно добавяне!</h3>
             <p class="text-center">В момента няма
-                <th:block th:text="${product.amount}"/>
+                <th:block th:utext="${product.amount}"/>
                 бр. в наличност.
             </p>
         </th:block>
@@ -95,29 +95,29 @@
             <div class="col-sm-4 col-md-7">
                 <blockquote>
                     Тип: <strong>
-                    <th:block th:text="*{type}"/>
+                    <th:block th:utext="*{type}"/>
                 </strong>
                     <hr>
                     Име: <strong>
-                    <th:block th:text="*{name}"/>
+                    <th:block th:utext="*{name}"/>
                 </strong>
                     <hr>
                     Цена: <strong>
-                    <th:block th:text="*{price} + ' лв.'"/>
+                    <th:block th:utext="*{price} + ' лв.'"/>
                 </strong>
                     <th:block th:if="${session.role == 'Admin'}">
                         <hr>
                         Количество: <strong>
-                        <th:block th:text="*{amount} + ' бр.'"/>
+                        <th:block th:utext="*{amount} + ' бр.'"/>
                     </strong>
                     </th:block>
                     <hr>
                     Производител: <strong>
-                    <th:block th:text="*{manufacturer} + ', ' + *{country}"/>
+                    <th:block th:utext="*{manufacturer} + ', ' + *{country}"/>
                 </strong>
                     <hr>
                     Статус: <strong>
-                    <th:block th:text="*{status}"/>
+                    <th:block th:utext="*{status}"/>
                 </strong>
                     <hr>
                 </blockquote>

@@ -23,11 +23,11 @@
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
                     <select id="type" class="form-control" name="type" required="required">
-                        <option th:selected="true" th:disabled="disabled" th:text="Тип"/>
-                        <option th:value="Лагер" th:text="Лагер"/>
-                        <option th:value="Ремък" th:text="Ремък"/>
-                        <option th:value="Семеринг" th:text="Семеринг"/>
-                        <option th:value="Друг" th:text="Друг"/>
+                        <option th:selected="true" th:disabled="disabled" th:utext="Тип"/>
+                        <option th:value="Лагер" th:utext="Лагер"/>
+                        <option th:value="Ремък" th:utext="Ремък"/>
+                        <option th:value="Семеринг" th:utext="Семеринг"/>
+                        <option th:value="Друг" th:utext="Друг"/>
                     </select>
                 </div> <!-- form-group// -->
 
@@ -47,7 +47,7 @@
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
                     <select id="manufacturer" class="form-control" name="manufacturer" required="required">
-                        <option th:selected="true" th:disabled="disabled" th:text="Производител"/>
+                        <option th:selected="true" th:disabled="disabled" th:utext="Производител"/>
                     </select>
                 </div> <!-- form-group// -->
 
@@ -76,7 +76,7 @@
                         <span class="input-group-text"> <i class="fa fa-city"></i> </span>
                     </div>
                     <select id="country" class="form-control" name="country" required="required">
-                        <option th:selected="true" th:disabled="disabled" th:text="Произход"/>
+                        <option th:selected="true" th:disabled="disabled" th:utext="Произход"/>
                     </select>
                 </div> <!-- form-group// -->
 
@@ -85,7 +85,7 @@
                         <span class="input-group-text"><i class="fas fa-truck"></i> </span>
                     </div>
                     <select class="form-control" name="status" required="required">
-                        <option th:selected="true" th:disabled="disabled" th:text="Статус"/>
+                        <option th:selected="true" th:disabled="disabled" th:utext="Статус"/>
                         <option>В наличност</option>
                         <option>3-5 работни дни</option>
                         <option>7-10 работни дни</option>

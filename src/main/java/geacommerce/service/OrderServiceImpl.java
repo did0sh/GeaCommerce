@@ -36,10 +36,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderServiceModel> findAllOrders() {
-        return this.orderRepository.findAll()
+        List<OrderServiceModel> orders = this.orderRepository.findAll()
                 .stream()
                 .map(order -> this.modelMapper.map(order, OrderServiceModel.class))
                 .collect(Collectors.toList());
+
+        return orders;
     }
 
     @Override

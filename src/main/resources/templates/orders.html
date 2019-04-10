@@ -42,13 +42,13 @@
 
                             <th:block th:each="order, iterStat : ${allOrders}" th:object="${order}">
                                 <tr>
-                                    <td th:text="${iterStat.index + 1} + '. ' + ${order.clientName}"></td>
-                                    <td th:text="${order.clientEmail}"></td>
-                                    <td th:text="${order.deliveryAddress}"></td>
-                                    <td th:text="${#strings.replace(order.orderDate, 'T', ' ')}"></td>
-                                    <td th:text="${order.orderPrice} + ' лв.'"></td>
-                                    <td th:text="${order.status}"></td>
-                                    <td th:text="${#strings.listJoin(order.formattedProducts.get(order.id), ' | ')}"></td>
+                                    <td th:utext="${iterStat.index + 1} + '. ' + ${order.clientName}"></td>
+                                    <td th:utext="${order.clientEmail}"></td>
+                                    <td th:utext="${order.deliveryAddress}"></td>
+                                    <td th:utext="${#strings.replace(order.orderDate, 'T', ' ')}"></td>
+                                    <td th:utext="${order.orderPrice} + ' лв.'"></td>
+                                    <td th:utext="${order.status}"></td>
+                                    <td th:utext="${#strings.listJoin(order.formattedProducts.get(order.id), ' | ')}"></td>
                                     <td>
                                         <p data-placement="top" data-toggle="tooltip">
                                             <button class="btn btn-success btn-xs ml-3" data-toggle="modal"

@@ -18,7 +18,7 @@
 
                 <form th:method="post" th:action="@{/sign-in}" th:object="${model}">
                     <ul>
-                        <li th:each="error : ${#fields.errors('*')}" th:text="${error}" th:class="text-danger"/>
+                        <li th:each="error : ${#fields.errors('*')}" th:utext="${error}" th:class="text-danger"/>
                     </ul>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">

@@ -36,11 +36,11 @@
                             <th:block th:each="inquiry, iterStat : ${allInquiries}" th:object="${inquiry}">
 
                                 <tr>
-                                    <td th:text="${iterStat.index + 1} + '. ' + ${inquiry.userName}"></td>
-                                    <td th:text="${inquiry.userEmail}"></td>
+                                    <td th:utext="${iterStat.index + 1} + '. ' + ${inquiry.userName}"></td>
+                                    <td th:utext="${inquiry.userEmail}"></td>
 
                                     <th:block th:if="${inquiry.message.length() <= 30}">
-                                        <td th:text="${inquiry.message}"></td>
+                                        <td th:utext="${inquiry.message}"></td>
                                     </th:block>
 
                                     <th:block th:unless="${inquiry.message.length() <= 30}">
@@ -49,7 +49,7 @@
                                                data-toggle="modal" th:attr="data-target='#viewModal'+${iterStat.index}"
                                                href="#viewModal">
                                                 <th:block
-                                                        th:text="${#strings.substring(inquiry.message, 0, 30)} + '...'"/>
+                                                        th:utext="${#strings.substring(inquiry.message, 0, 30)} + '...'"/>
                                             </a>
                                         </td>
 
@@ -78,7 +78,7 @@
                                             </div>
                                             <div class="modal-body col-md-12 col-lg-12">
                                                 <div class="col-xs-4">
-                                                    <th:block th:text="${inquiry.message}"/>
+                                                    <th:block th:utext="${inquiry.message}"/>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

@@ -267,8 +267,8 @@
                                     </ul>
                                 </div>
                                 <div class="product-content">
-                                    <h3 class="title" th:text="${match.name}"><a href="#"></a></h3>
-                                    <div class="price" th:text="${match.price} + ' лв.'"/>
+                                    <h3 class="title" th:utext="${match.name}"><a href="#"></a></h3>
+                                    <div class="price" th:utext="${match.price} + ' лв.'"/>
                                 </div>
                             </div>
                         </div>

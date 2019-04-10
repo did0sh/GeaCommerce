@@ -19,7 +19,7 @@
 
                 <form th:method="post" th:action="@{/create-account}" th:object="${bindingModel}">
                     <ul>
-                        <li th:each="error : ${#fields.errors('*')}" th:text="${error}" th:class="text-danger"/>
+                        <li th:each="error : ${#fields.errors('*')}" th:utext="${error}" th:class="text-danger"/>
                     </ul>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
@@ -100,15 +100,15 @@
                             <span class="input-group-text"> <i class="fas fa-city"></i> </span>
                         </div>
                         <select class="form-control" name="town">
-                            <option th:text="Град" th:selected="true" th:disabled="disabled"/>
-                            <option th:value="Варна" th:text="Варна"/>
-                            <option th:value="София" th:text="София"/>
-                            <option th:value="Русе" th:text="Русе"/>
-                            <option th:value="Шумен" th:text="Шумен"/>
-                            <option th:value="Хасково" th:text="Хасково"/>
-                            <option th:value="Силистра" th:text="Силистра"/>
-                            <option th:value="Бургас" th:text="Бургас"/>
-                            <option th:value="Сливен" th:text="Сливен"/>
+                            <option th:utext="Град" th:selected="true" th:disabled="disabled"/>
+                            <option th:value="Варна" th:utext="Варна"/>
+                            <option th:value="София" th:utext="София"/>
+                            <option th:value="Русе" th:utext="Русе"/>
+                            <option th:value="Шумен" th:utext="Шумен"/>
+                            <option th:value="Хасково" th:utext="Хасково"/>
+                            <option th:value="Силистра" th:utext="Силистра"/>
+                            <option th:value="Бургас" th:utext="Бургас"/>
+                            <option th:value="Сливен" th:utext="Сливен"/>
                         </select>
                     </div> <!-- form-group// -->
 

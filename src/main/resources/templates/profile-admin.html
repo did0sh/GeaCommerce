@@ -16,17 +16,17 @@
             <div class="col-sm-4 col-md-7 justify-content-center" style="color: orangered;">
                 <blockquote>
                     <i class="fas fa-user-circle"></i>
-                    <th:block th:text="${session.name} + ' ' + ${session.lastName} + ' - Администратор'"/>
+                    <th:block th:utext="${session.name} + ' ' + ${session.lastName} + ' - Администратор'"/>
                     <hr/>
                 </blockquote>
                 <blockquote>
                     <i class="fas fa-envelope"></i>
-                    <th:block th:text="${session.email}"/>
+                    <th:block th:utext="${session.email}"/>
                     <hr/>
                 </blockquote>
                 <blockquote>
                     <i class="fas fa-phone"></i>
-                    <th:block th:text="${session.phone}"/>
+                    <th:block th:utext="${session.phone}"/>
                     <hr>
                     <i class="fas fa-shopping-cart"></i>
                     <th:block th:if="${session.inquiries == null}">
@@ -37,7 +37,7 @@
 
                     <th:block th:unless="${session.inquiries == null}">
                         <a th:href="@{/inquiries/details}">
-                            <th:block th:text="${'Запитвания: ' + session.inquiries}"/>
+                            <th:block th:utext="${'Запитвания: ' + session.inquiries}"/>
                         </a>
                     </th:block>
                 </blockquote>

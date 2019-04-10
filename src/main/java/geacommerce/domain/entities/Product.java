@@ -1,13 +1,14 @@
 package geacommerce.domain.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
-public class Product extends BaseEntity {
+public class Product extends BaseEntity implements Serializable {
 
     private String type;
     private String name;

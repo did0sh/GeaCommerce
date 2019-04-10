@@ -15,13 +15,13 @@
 
             <div class="col-sm-4 col-md-7" style="color: orangered;">
                 <blockquote>
-                    <i class="fas fa-user-circle"></i> <th:block th:text="${session.name} + ' ' + ${session.lastName}"/>
+                    <i class="fas fa-user-circle"></i> <th:block th:utext="${session.name} + ' ' + ${session.lastName}"/>
                     <hr>
-                    <i class="fas fa-map-marker-alt"></i> <th:block th:text="${session.address} + ', ' + ${session.town}"/>
+                    <i class="fas fa-map-marker-alt"></i> <th:block th:utext="${session.address} + ', ' + ${session.town}"/>
                     <hr>
                 </blockquote>
                 <blockquote>
-                    <i class="fas fa-envelope"></i> <th:block th:text="${session.email}"/>
+                    <i class="fas fa-envelope"></i> <th:block th:utext="${session.email}"/>
                 </blockquote>
                 <hr>
                 <blockquote>
@@ -31,7 +31,7 @@
                     </th:block>
 
                     <th:block th:unless="${session.cartItems == null}">
-                        <a th:href="@{/cart/{id}(id=${session.user.id})}"><th:block th:text="${'Продукти в количката: ' + session.cartItems}"/></a>
+                        <a th:href="@{/cart/{id}(id=${session.user.id})}"><th:block th:utext="${'Продукти в количката: ' + session.cartItems}"/></a>
                     </th:block>
                 </blockquote>
             </div>

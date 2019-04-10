@@ -151,12 +151,12 @@
                                         <div class="media-body ml-2">
                                             <h4 class="media-heading">
                                                 <a th:href="@{/products/details/{id}(id=${product.key})}"
-                                                   th:text="${product.value.name}"/>
+                                                   th:utext="${product.value.name}"/>
                                             </h4>
-                                            <h5 class="media-heading" th:text="${product.value.manufacturer}"></h5>
+                                            <h5 class="media-heading" th:utext="${product.value.manufacturer}"></h5>
                                             <span>Статус: </span>
                                             <span
-                                                    class="text-success"><strong th:text="${product.value.status}"/>
+                                                    class="text-success"><strong th:utext="${product.value.status}"/>
                                         </span>
                                         </div>
                                     </div>
@@ -166,10 +166,10 @@
                                            th:value="${product.value.cartAmount}" th:disabled="disabled">
                                 </td>
                                 <td class="col-sm-1 col-md-1 text-center">
-                                    <strong th:text="${product.value.price}"/>
+                                    <strong th:utext="${product.value.price}"/>
                                 </td>
                                 <td class="col-sm-1 col-md-1 text-center">
-                                    <strong th:text="${product.value.price} * ${product.value.cartAmount}"/>
+                                    <strong th:utext="${product.value.price} * ${product.value.cartAmount}"/>
                                 </td>
                                 <td class="col-sm-1 col-md-1">
                                     <th:form th:method="post" th:action="@{/cart/{id}(id=${product.key})}">
@@ -195,7 +195,7 @@
                                             <div class="modal-body">
                                                 Сигурни ли сте, че искате да премахнете продукт:
                                                 <strong>
-                                                    <th:block th:text="${product.value.name}"/>
+                                                    <th:block th:utext="${product.value.name}"/>
                                                 </strong> ?
                                             </div>
                                             <div class="modal-footer">
@@ -219,7 +219,7 @@
                             <td></td>
                             <td></td>
                             <td><h5 style="width: 120px">Крайна сума</h5></td>
-                            <td class="text-right"><h5><strong th:text="${total} + ' лв.'"/></h5></td>
+                            <td class="text-right"><h5><strong th:utext="${total} + ' лв.'"/></h5></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -233,7 +233,7 @@
                             <td></td>
                             <td></td>
                             <td><h5 style="width: 120px">Общо</h5></td>
-                            <td class="text-right"><h5><strong th:text="${total} + 6.99 + ' лв.'"/></h5></td>
+                            <td class="text-right"><h5><strong th:utext="${total} + 6.99 + ' лв.'"/></h5></td>
                         </tr>
                         <tr>
                             <td>
