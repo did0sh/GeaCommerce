@@ -12,5 +12,5 @@ public interface OrderService {
 
     Object[][] getOrderProducts();
 
-    void completeOrder(String orderId);
+    boolean completeOrder(String orderId);
 }

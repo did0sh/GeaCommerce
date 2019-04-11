@@ -38,6 +38,7 @@ public class UserServiceTests {
     @Before
     public void setup(){
         this.userServiceModel = new UserServiceModel(){{
+            setId("1");
             setAddress("Test address");
             setEmail("test@email.com");
             setCart(new Cart(){{
@@ -47,7 +48,6 @@ public class UserServiceTests {
             setFirstName("test");
             setLastName("testName");
             setGender("male");
-            setId("1");
             setPassword("123");
             setPhoneNumber("+359888123123");
             setRole("Guest");
@@ -55,20 +55,17 @@ public class UserServiceTests {
         }};
 
         this.user =  new User(){{
-            setAddress("Test address");
-            setEmail("test@email.com");
-            setCart(new Cart(){{
-                setId("cartId");
-                setProducts(new LinkedHashMap<>());
-            }});
-            setFirstName("test");
-            setLastName("testName");
-            setGender("male");
-            setId("1");
-            setPassword(DigestUtils.sha256Hex("123"));
-            setPhoneNumber("+359888123123");
+            setId(userServiceModel.getId());
+            setAddress(userServiceModel.getAddress());
+            setEmail(userServiceModel.getEmail());
+            setCart(userServiceModel.getCart());
+            setFirstName(userServiceModel.getFirstName());
+            setLastName(userServiceModel.getLastName());
+            setGender(userServiceModel.getGender());
+            setPassword(DigestUtils.sha256Hex(userServiceModel.getPassword()));
+            setPhoneNumber(userServiceModel.getPhoneNumber());
             setRole(Role.Guest);
-            setTown("Test town");
+            setTown(userServiceModel.getTown());
         }};
 
         when(mockUserRepository.findByEmail(userServiceModel.getEmail()))

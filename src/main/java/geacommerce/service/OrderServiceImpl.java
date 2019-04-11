@@ -36,12 +36,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderServiceModel> findAllOrders() {
-        List<OrderServiceModel> orders = this.orderRepository.findAll()
+        return this.orderRepository.findAll()
                 .stream()
                 .map(order -> this.modelMapper.map(order, OrderServiceModel.class))
                 .collect(Collectors.toList());
-
-        return orders;
     }
 
     @Override
@@ -50,11 +48,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void completeOrder(String orderId) {
+    public boolean completeOrder(String orderId) {
         try {
             this.orderRepository.deleteById(orderId);
         }catch (Exception e){
             e.printStackTrace();
+            return false;
         }
+
+        return true;
     }
 }

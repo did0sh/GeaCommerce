@@ -57,17 +57,17 @@ public class ProductServiceTests {
         }};
 
         this.product = new Product(){{
-            setId("1");
-            setAmount(2);
+            setId(productServiceModel.getId());
+            setAmount(productServiceModel.getAmount());
             setCarts(new ArrayList<>() {{
                 add(new Cart());
             }});
-            setPrice(BigDecimal.TEN);
-            setCountry("Test country");
-            setManufacturer(ProductManufacturer.FAG);
-            setName("Test product");
-            setStatus("Test status");
-            setType("Test type");
+            setPrice(productServiceModel.getPrice());
+            setCountry(productServiceModel.getCountry());
+            setManufacturer(productServiceModel.getManufacturer());
+            setName(productServiceModel.getName());
+            setStatus(productServiceModel.getStatus());
+            setType(productServiceModel.getType());
             setCartAmount(1);
         }};
 
