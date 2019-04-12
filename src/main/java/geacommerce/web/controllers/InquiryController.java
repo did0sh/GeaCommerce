@@ -37,7 +37,7 @@ public class InquiryController extends BaseController {
     @PageTitle(value = "Запитване")
     public ModelAndView inquiry(@ModelAttribute(name = "inquiryModel") InquiryBindingModel model, HttpSession session) {
         if (session.getAttribute("role") == "Guest") {
-            this.setDisabledFieldsForGuestUser(session, model);
+            this.setInquiryFieldsForGuestUser(session, model);
             return super.view("inquiry", "inquiryModel", model);
 
         } else if (session.getAttribute("role") == null) {
@@ -86,7 +86,7 @@ public class InquiryController extends BaseController {
 
     }
 
-    private void setDisabledFieldsForGuestUser(HttpSession session, InquiryBindingModel model) {
+    private void setInquiryFieldsForGuestUser(HttpSession session, InquiryBindingModel model) {
         String firstName = (String) session.getAttribute("name");
         String lastName = (String) session.getAttribute("lastName");
         String email = (String) session.getAttribute("email");

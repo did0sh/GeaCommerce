@@ -24,7 +24,7 @@ public class InquiryBindingModel {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.userName = userName.trim();
     }
 
     @NotNull(message = Constants.NOT_NULL_LOGIN_REGISTER_EMAIL_MESSAGE)
@@ -35,17 +35,17 @@ public class InquiryBindingModel {
     }
 
     public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+        this.userEmail = userEmail.trim();
     }
 
-    @NotNull(message = Constants.NOT_NULL_REGISTER_ADDRESS_MESSAGE)
-    @NotEmpty(message = Constants.NOT_EMPTY_REGISTER_ADDRESS_MESSAGE)
+    @NotNull(message = Constants.NOT_NULL_INQUIRY_MESSAGE)
+    @NotEmpty(message = Constants.NOT_EMPTY_INQUIRY_MESSAGE)
     @Size(max = 500, message = Constants.INQUIRY_MESSAGE_SIZE)
     public String getMessage() {
         return this.message;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.message = message.trim();
     }
 }
