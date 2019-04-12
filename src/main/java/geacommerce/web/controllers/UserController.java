@@ -60,6 +60,7 @@ public class UserController extends BaseController {
         UserServiceModel userServiceModel =
                 this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class);
 
+
         if (userServiceModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())
                 && this.validator.validate(userRegisterBindingModel).size() == 0
                 && !result.hasErrors()
@@ -68,6 +69,7 @@ public class UserController extends BaseController {
             this.userService.registerUser(userServiceModel);
             return super.view("/create-account", "registered", true);
         }
+
 
         return super.view("/create-account", "bindingModel", userRegisterBindingModel,
                 "registered", false);
@@ -90,7 +92,7 @@ public class UserController extends BaseController {
 
         UserServiceModel userServiceModel = this.modelMapper.map(userLoginBindingModel, UserServiceModel.class);
 
-        if (result.hasErrors() || (userServiceModel = this.userService.loginUser(userServiceModel)) == null){
+        if (result.hasErrors() || (userServiceModel = this.userService.loginUser(userServiceModel)) == null) {
             return super.view("sign-in", "model", userLoginBindingModel, "loggedIn", false);
         }
 
@@ -108,7 +110,7 @@ public class UserController extends BaseController {
         UserServiceModel user = (UserServiceModel) session.getAttribute("user");
         String cartID = (String) session.getAttribute("cartID");
         if (user.getRole() != null) {
-            if (user.getRole().equals("Guest") && cartID != null){
+            if (user.getRole().equals("Guest") && cartID != null) {
                 this.userService.removeCart(user, cartID);
             }
             session.invalidate();
@@ -135,8 +137,8 @@ public class UserController extends BaseController {
         return super.view("profile-admin");
     }
 
-    private void addSessionAttributes(UserServiceModel userServiceModel, HttpSession session){
-        Map<String, String> sessionMap = new LinkedHashMap<>(){{
+    private void addSessionAttributes(UserServiceModel userServiceModel, HttpSession session) {
+        Map<String, String> sessionMap = new LinkedHashMap<>() {{
             put("name", userServiceModel.getFirstName());
             put("lastName", userServiceModel.getLastName());
             put("address", userServiceModel.getAddress());

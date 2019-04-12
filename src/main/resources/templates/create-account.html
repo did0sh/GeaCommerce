@@ -6,6 +6,7 @@
                 <h3 style="color:#0fad00" class="text-center">Успешна регистрация!</h3>
                 <meta http-equiv="refresh" th:attr="content=${'1; url=/sign-in'}"/>
             </th:block>
+
             <th:block th:unless="${registered == true}">
                 <th:block th:if="${registered == false}">
                     <h3 style="color:#ff0000" class="text-center">Неуспешна регистрация!</h3>
