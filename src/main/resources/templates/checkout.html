@@ -3,7 +3,7 @@
     <div class='container'>
         <th:block th:if="${orderSuccessful == true}">
             <h3 style="color:#0fad00" class="text-center mt-3">Вашата поръчка е приета!</h3>
-            <p class="text-center">Тя ще бъде доставена в зависимост от наличността на продуктите (макс. 10 дни)!</p>
+            <p class="text-center">Тя ще бъде доставена в зависимост от наличността на продуктите!</p>
         </th:block>
         <th:block th:unless="${orderSuccessful == true}">
             <div class='row' style='padding-top:25px; padding-bottom:25px;'>

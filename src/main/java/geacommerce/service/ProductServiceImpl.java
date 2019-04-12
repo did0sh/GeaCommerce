@@ -151,13 +151,16 @@ public class ProductServiceImpl implements ProductService {
     void generateDiscounts() {
         BigDecimal discount = BigDecimal.valueOf(0.95);
         List<Product> allProducts = this.productRepository.findAll();
-        Random random = new Random();
-        int randomProductNumber = random.nextInt(allProducts.size());
 
-        Product randomPickedProduct = allProducts.get(randomProductNumber);
-        randomPickedProduct.setPrice(randomPickedProduct.getPrice().multiply(discount));
+        if (allProducts.size() != 0){
+            Random random = new Random();
+            int randomProductNumber = random.nextInt(allProducts.size());
 
-        this.productRepository.save(randomPickedProduct);
+            Product randomPickedProduct = allProducts.get(randomProductNumber);
+            randomPickedProduct.setPrice(randomPickedProduct.getPrice().multiply(discount));
+
+            this.productRepository.save(randomPickedProduct);
+        }
     }
 
     @Override
