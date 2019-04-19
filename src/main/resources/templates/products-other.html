@@ -1,5 +1,18 @@
 <!--suppress ALL -->
 <th:block th:fragment>
+    <script th:src="@{https://code.jquery.com/jquery-3.2.1.slim.min.js}"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var activePage = $(location).attr('href').split('page=')[1];
+            if (!isNaN(activePage)) {
+                $(this).siblings('li').removeClass('page-item active');
+                $("ul.pagination li:nth-child("+activePage+")").addClass("page-item active");
+            }
+        });
+    </script>
     <style type="text/css">
         .d-flex {
             overflow: hidden;
@@ -163,11 +176,11 @@
     <div class="d-flex" id="wrapper">
         <div class="bg-light border-right border-top border-bottom" id="sidebar-wrapper">
             <div class="list-group list-group-flush">
-                <a th:href="@{/products/all}" class="list-group-item list-group-item-action bg-light">Всички</a>
-                <a th:href="@{/products/bearings}" class="list-group-item list-group-item-action bg-light">Лагери</a>
-                <a th:href="@{/products/belts}" class="list-group-item list-group-item-action bg-light">Ремъци</a>
-                <a th:href="@{/products/seals}" class="list-group-item list-group-item-action bg-light">Семеринги</a>
-                <a th:href="@{/products/other}" class="list-group-item list-group-item-action bg-light">Други</a>
+                <a th:href="@{/products/all?page=1}" class="list-group-item list-group-item-action bg-light">Всички</a>
+                <a th:href="@{/products/bearings?page=1}" class="list-group-item list-group-item-action bg-light">Лагери</a>
+                <a th:href="@{/products/belts?page=1}" class="list-group-item list-group-item-action bg-light">Ремъци</a>
+                <a th:href="@{/products/seals?page=1}" class="list-group-item list-group-item-action bg-light">Семеринги</a>
+                <a th:href="@{/products/other?page=1}" class="list-group-item list-group-item-action bg-light">Други</a>
             </div>
         </div>
 
@@ -204,6 +217,24 @@
                         </div>
                     </th:block>
                 </div>
+
+                <nav aria-label="page navigation">
+                    <ul class="pagination justify-content-end mr-5 mt-3">
+                        <th:block th:if="${pages.getTotalElements() <= 20}">
+                            <li class="page-item"><a class="page-link" th:href="@{/products/other?page=1}">1</a></li>
+                        </th:block>
+                        <th:block th:if="${pages.getTotalElements() > 20 && pages.getTotalElements() % 20 != 0}">
+                            <th:block th:each="pageNumber : ${#numbers.sequence(1, (pages.getTotalElements()/20 + 1))}">
+                                <li class="page-item"><a class="page-link" th:href="@{/products/other?page={page}(page=${pageNumber})}" th:text="${pageNumber}"/></li>
+                            </th:block>
+                        </th:block>
+                        <th:block th:if="${pages.getTotalElements() > 20 && pages.getTotalElements() % 20 == 0}">
+                            <th:block th:each="pageNumber : ${#numbers.sequence(1, (pages.getTotalElements()/20))}">
+                                <li class="page-item"><a class="page-link" th:href="@{/products/other?page={page}(page=${pageNumber})}" th:text="${pageNumber}"/></li>
+                            </th:block>
+                        </th:block>
+                    </ul>
+                </nav>
             </th:block>
         </div>
     </div>

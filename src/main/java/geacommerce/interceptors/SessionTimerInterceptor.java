@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 @Component
 public class SessionTimerInterceptor extends HandlerInterceptorAdapter {
 
-    private static final long MAX_INACTIVE_SESSION_TIME_1DAY_IN_MILLISECONDS = 86400000;
+    private static final long MAX_INACTIVE_SESSION_TIME_1DAY_IN_MILLISECONDS = 86_400_000;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

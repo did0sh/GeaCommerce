@@ -1,11 +1,15 @@
 package geacommerce.web.controllers;
 
 
+import geacommerce.common.Constants;
+import geacommerce.domain.entities.Product;
 import geacommerce.domain.models.view.ProductViewModel;
 import geacommerce.service.ProductService;
 import geacommerce.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,21 +33,21 @@ public class SearchController extends BaseController {
 
     @RequestMapping("")
     @PageTitle(value = "Търсене")
-    public ModelAndView search(HttpSession session) {
+    public ModelAndView search(HttpSession session, Pageable pageable) {
         if (session.getAttribute("searched") != null){
 
             String formattedInput = String.valueOf(session.getAttribute("input")).trim().toLowerCase();
             String regexToSearch = ".*" + formattedInput.replaceAll("\\s+", ".*") +
                     ".*";
 
-            List<ProductViewModel> matchedProducts = this.productService.findAllProducts()
-                    .stream()
+            Page<Product> pages = this.productService.findAllBySearch(pageable, formattedInput);
+            List<ProductViewModel> matchedProducts = pages.get()
                     .map(productServiceModel -> this.modelMapper.map(productServiceModel, ProductViewModel.class))
                     .filter(productViewModel ->
                             productViewModel.getName().toLowerCase().matches(regexToSearch))
                     .collect(Collectors.toList());
 
-            return super.view("search", "matchedProducts", matchedProducts);
+            return super.view("search", "matchedProducts", matchedProducts, "pages", pages);
         }
 
         return super.redirect("/");

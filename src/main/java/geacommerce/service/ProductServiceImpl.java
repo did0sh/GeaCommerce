@@ -1,14 +1,18 @@
 package geacommerce.service;
 
+import geacommerce.common.Constants;
 import geacommerce.domain.entities.Cart;
 import geacommerce.domain.entities.Product;
 import geacommerce.domain.models.service.CartServiceModel;
 import geacommerce.domain.models.service.ProductServiceModel;
+import geacommerce.domain.models.view.ProductViewModel;
 import geacommerce.repository.CartRepository;
 import geacommerce.repository.ProductRepository;
 import geacommerce.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -49,11 +53,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductServiceModel> findAllProducts() {
-        return this.productRepository.findAll()
-                .stream()
-                .map(product -> this.modelMapper.map(product, ProductServiceModel.class))
-                .collect(Collectors.toList());
+    public Page<Product> findAllProductsByType(Pageable pageable, String productType) {
+        switch (productType){
+            case Constants.BEARING_TYPE:
+                return this.productRepository.findAll(pageable, Constants.BEARING_TYPE);
+            case Constants.BELT_TYPE:
+                return this.productRepository.findAll(pageable, Constants.BELT_TYPE);
+            case Constants.SEAL_TYPE:
+                return this.productRepository.findAll(pageable, Constants.SEAL_TYPE);
+            case Constants.OTHER_TYPE:
+                return this.productRepository.findAll(pageable, Constants.OTHER_TYPE);
+                default:
+                    return this.productRepository.findAll(pageable);
+        }
+    }
+
+    @Override
+    public Page<Product> findAllBySearch(Pageable pageable, String productName) {
+        return this.productRepository.findAllBySearchInput(pageable, productName);
     }
 
     @Override
@@ -92,6 +109,7 @@ public class ProductServiceImpl implements ProductService {
         return true;
     }
 
+    //TODO REFACTOR ME
     @Override
     public CartServiceModel updateProductWithCart(ProductServiceModel productServiceModel, CartServiceModel cartServiceModel) {
         Product productForCart = this.modelMapper.map(productServiceModel, Product.class);

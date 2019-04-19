@@ -52,6 +52,6 @@ public class HomeController extends BaseController {
 
         session.setAttribute("searched", true);
         session.setAttribute("input", searchBindingModel.getSearchValue());
-        return super.redirect("/search");
+        return super.redirect("/search?page=1");
     }
 }

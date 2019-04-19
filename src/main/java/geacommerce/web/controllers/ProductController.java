@@ -1,5 +1,6 @@
 package geacommerce.web.controllers;
 
+import geacommerce.common.Constants;
 import geacommerce.domain.entities.Product;
 import geacommerce.domain.entities.User;
 import geacommerce.domain.models.binding.ProductAddBindingModel;
@@ -13,6 +14,9 @@ import geacommerce.service.ProductService;
 import geacommerce.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -47,13 +51,14 @@ public class ProductController extends BaseController {
 
     @RequestMapping("/all")
     @PageTitle(value = "Продукти")
-    public ModelAndView products() {
-        List<ProductViewModel> allProducts =
-                this.productService.findAllProducts()
-                        .stream().map(productServiceModel -> this.modelMapper.map(productServiceModel, ProductViewModel.class))
-                        .collect(Collectors.toList());
+    public ModelAndView products(Pageable pageable) {
 
-        return super.view("products-all", "allProducts", allProducts);
+        Page<Product> pages = this.productService.findAllProductsByType(pageable, Constants.ALL_TYPE);
+        List<ProductViewModel> allProducts = pages.getContent()
+                .stream().map(product -> this.modelMapper.map(product, ProductViewModel.class))
+                .collect(Collectors.toList());
+
+        return super.view("products-all", "allProducts", allProducts, "pages", pages);
     }
 
     @RequestMapping("/add-product")
@@ -85,50 +90,58 @@ public class ProductController extends BaseController {
 
     @RequestMapping("/bearings")
     @PageTitle(value = "Лагери")
-    public ModelAndView bearings() {
+    public ModelAndView bearings(Pageable pageable) {
+        Page<Product> pages = this.productService.findAllProductsByType(pageable, Constants.BEARING_TYPE);
+
         List<ProductViewModel> allBearings =
-                this.productService.findAllProducts()
+                        pages.getContent()
                         .stream().map(productServiceModel -> this.modelMapper.map(productServiceModel, ProductViewModel.class))
-                        .filter(productViewModel -> productViewModel.getType().equals("Лагер"))
+                        .filter(productViewModel -> productViewModel.getType().equals(Constants.BEARING_TYPE))
                         .collect(Collectors.toList());
 
-        return super.view("products-bearings", "allBearings", allBearings);
+        return super.view("products-bearings", "allBearings", allBearings, "pages", pages);
     }
 
     @RequestMapping("/belts")
     @PageTitle(value = "Ремъци")
-    public ModelAndView belts() {
+    public ModelAndView belts(Pageable pageable) {
+        Page<Product> pages = this.productService.findAllProductsByType(pageable, Constants.BELT_TYPE);
+
         List<ProductViewModel> allBelts =
-                this.productService.findAllProducts()
+                        pages.getContent()
                         .stream().map(productServiceModel -> this.modelMapper.map(productServiceModel, ProductViewModel.class))
-                        .filter(productViewModel -> productViewModel.getType().equals("Ремък"))
+                        .filter(productViewModel -> productViewModel.getType().equals(Constants.BELT_TYPE))
                         .collect(Collectors.toList());
 
-        return super.view("products-belts", "allBelts", allBelts);
+        return super.view("products-belts", "allBelts", allBelts, "pages", pages);
     }
 
     @RequestMapping("/seals")
     @PageTitle(value = "Семеринги")
-    public ModelAndView seals() {
+    public ModelAndView seals(Pageable pageable) {
+        Page<Product> pages = this.productService.findAllProductsByType(pageable, Constants.SEAL_TYPE);
+
         List<ProductViewModel> allSeals =
-                this.productService.findAllProducts()
+                        pages.getContent()
                         .stream().map(productServiceModel -> this.modelMapper.map(productServiceModel, ProductViewModel.class))
-                        .filter(productViewModel -> productViewModel.getType().equals("Семеринг"))
+                        .filter(productViewModel -> productViewModel.getType().equals(Constants.SEAL_TYPE))
                         .collect(Collectors.toList());
 
-        return super.view("products-seals", "allSeals", allSeals);
+        return super.view("products-seals", "allSeals", allSeals, "pages", pages);
     }
 
     @RequestMapping("/other")
     @PageTitle(value = "Други")
-    public ModelAndView other() {
+    public ModelAndView other(Pageable pageable) {
+        Page<Product> pages = this.productService.findAllProductsByType(pageable, Constants.OTHER_TYPE);
+
         List<ProductViewModel> otherItems =
-                this.productService.findAllProducts()
+                        pages.getContent()
                         .stream().map(productServiceModel -> this.modelMapper.map(productServiceModel, ProductViewModel.class))
-                        .filter(productViewModel -> productViewModel.getType().equals("Друг"))
+                        .filter(productViewModel -> productViewModel.getType().equals(Constants.OTHER_TYPE))
                         .collect(Collectors.toList());
 
-        return super.view("products-other", "otherItems", otherItems);
+        return super.view("products-other", "otherItems", otherItems, "pages", pages);
     }
 
     @RequestMapping("/details/{id}")

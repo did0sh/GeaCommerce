@@ -18,7 +18,7 @@
             <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/}">Начало</a>
             <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/info}">За нас</a>
             <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/our-shops}">Магазини</a>
-            <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/products/all}">Продукти</a>
+            <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/products/all?page=1}">Продукти</a>
             <th:block th:if="${session.role == 'Admin'}">
                 <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/orders}"><i class="fas fa-folder"></i> Поръчки </a>
                 <a class="py-2 d-none d-md-inline-block ml-5" th:href="@{/user/profile-admin}" th:utext="'Админ: ' + ${session.name} + ' ' + ${session.lastName}"/>

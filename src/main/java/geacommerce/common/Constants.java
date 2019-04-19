@@ -37,4 +37,10 @@ public class Constants {
     public static final String SEARCH_PATTERN_MESSAGE = "Специални символи не са позволени.";
 
     public static final String ORDER_STATUS_CONFIRMED = "Приета";
+
+    public static final String BEARING_TYPE = "Лагер";
+    public static final String BELT_TYPE = "Ремък";
+    public static final String SEAL_TYPE = "Семеринг";
+    public static final String OTHER_TYPE = "Друг";
+    public static final String ALL_TYPE = "Всички";
 }

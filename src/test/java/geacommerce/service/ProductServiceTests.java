@@ -94,18 +94,18 @@ public class ProductServiceTests {
         assertTrue(isSaved);
     }
 
-    @Test
-    public void findAllProducts_whenListEmpty_ShouldReturnIsEmpty(){
-        this.productList.clear();
-        List<ProductServiceModel> products = this.productService.findAllProducts();
-        assertTrue(products.isEmpty());
-    }
-
-    @Test
-    public void findAllProducts_whenListHasProducts_ShouldReturnCorrectSize(){
-        List<ProductServiceModel> products = this.productService.findAllProducts();
-        assertEquals(2, products.size());
-    }
+//    @Test
+//    public void findAllProducts_whenListEmpty_ShouldReturnIsEmpty(){
+//        this.productList.clear();
+//        List<ProductServiceModel> products = this.productService.findAllProducts();
+//        assertTrue(products.isEmpty());
+//    }
+//
+//    @Test
+//    public void findAllProducts_whenListHasProducts_ShouldReturnCorrectSize(){
+//        List<ProductServiceModel> products = this.productService.findAllProducts();
+//        assertEquals(2, products.size());
+//    }
 
     @Test
     public void findProductByID_whenIDIsDifferent_ShouldReturnNull(){
