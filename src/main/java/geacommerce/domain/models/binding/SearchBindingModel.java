@@ -11,7 +11,7 @@ public class SearchBindingModel {
     public SearchBindingModel() {
     }
 
-    @Pattern(regexp = "^[A-z0-9А-я\\s]+$", message = Constants.SEARCH_PATTERN_MESSAGE)
+    @Pattern(regexp = Constants.PRODUCT_SEARCH_PATTERN, message = Constants.SEARCH_PATTERN_MESSAGE)
     public String getSearchValue() {
         return this.searchValue;
     }

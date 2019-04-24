@@ -1,5 +1,6 @@
 package geacommerce.domain.models.binding;
 
+import geacommerce.common.Constants;
 import geacommerce.domain.entities.ProductManufacturer;
 
 import javax.validation.constraints.*;
@@ -30,7 +31,7 @@ public class ProductAddBindingModel {
 
     @NotNull
     @NotEmpty
-    @Size(min = 2, max = 20)
+    @Size(min = Constants.PRODUCT_NAME_MINIMUM_SIZE, max = Constants.PRODUCT_NAME_MAXIMUM_SIZE)
     public String getName() {
         return this.name;
     }
@@ -58,7 +59,7 @@ public class ProductAddBindingModel {
         this.status = status;
     }
 
-    @DecimalMin(value = "0.01")
+    @DecimalMin(value = Constants.PRODUCT_PRICE_MINIMUM_VALUE)
     public BigDecimal getPrice() {
         return this.price;
     }
@@ -68,7 +69,7 @@ public class ProductAddBindingModel {
     }
 
     @NotNull
-    @Min(value = 1)
+    @Min(value = Constants.PRODUCT_AMOUNT_MINIMUM_VALUE)
     public Integer getAmount() {
         return this.amount;
     }

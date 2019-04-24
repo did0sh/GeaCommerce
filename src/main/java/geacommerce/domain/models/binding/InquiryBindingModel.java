@@ -18,7 +18,7 @@ public class InquiryBindingModel {
 
     @NotNull(message = Constants.NOT_NULL_REGISTER_NAME_MESSAGE)
     @NotEmpty(message = Constants.NOT_EMPTY_REGISTER_NAME_MESSAGE)
-    @Size(min = 2, max = 20, message = Constants.USER_REGISTER_NAME_SIZE_MESSAGE)
+    @Size(min = Constants.INQUIRY_MESSAGE_USERNAME_MINIMUM_SIZE, max = Constants.INQUIRY_MESSAGE_USERNAME_MAXIMUM_SIZE, message = Constants.USER_REGISTER_NAME_SIZE_MESSAGE)
     public String getUserName() {
         return this.userName;
     }
@@ -40,7 +40,7 @@ public class InquiryBindingModel {
 
     @NotNull(message = Constants.NOT_NULL_INQUIRY_MESSAGE)
     @NotEmpty(message = Constants.NOT_EMPTY_INQUIRY_MESSAGE)
-    @Size(max = 500, message = Constants.INQUIRY_MESSAGE_SIZE)
+    @Size(max = Constants.INQUIRY_MESSAGE_MAXIMUM_SIZE, message = Constants.INQUIRY_MESSAGE_SIZE)
     public String getMessage() {
         return this.message;
     }

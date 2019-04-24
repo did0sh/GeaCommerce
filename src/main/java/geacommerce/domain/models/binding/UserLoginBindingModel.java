@@ -28,7 +28,7 @@ public class UserLoginBindingModel {
         this.email = email.trim();
     }
 
-    @Size(min = 3, message = Constants.USER_LOGIN_REGISTER_PASSWORD_INVALID_MESSAGE)
+    @Size(min = Constants.USER_LOGIN_REGISTER_PASSWORD_MINIMUM_SIZE, message = Constants.USER_LOGIN_REGISTER_PASSWORD_INVALID_MESSAGE)
     public String getPassword() {
         return this.password;
     }

@@ -1,5 +1,7 @@
 package geacommerce.domain.models.binding;
 
+import geacommerce.common.Constants;
+
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -59,7 +61,7 @@ public class ProductUpdateBindingModel {
         this.status = status;
     }
 
-    @DecimalMin(value = "0.01")
+    @DecimalMin(value = Constants.PRODUCT_PRICE_MINIMUM_VALUE)
     public BigDecimal getPrice() {
         return this.price;
     }
@@ -69,7 +71,7 @@ public class ProductUpdateBindingModel {
     }
 
     @NotNull
-    @Min(value = 1)
+    @Min(value = Constants.PRODUCT_AMOUNT_MINIMUM_VALUE)
     public Integer getAmount() {
         return this.amount;
     }

@@ -53,7 +53,7 @@ public class ProductAddToCartBindingModel {
     }
 
     @NotNull
-    @Min(value = 1, message = Constants.ADD_TO_CART_MINIMUM_QUANTITY)
+    @Min(value = Constants.PRODUCT_AMOUNT_MINIMUM_VALUE, message = Constants.ADD_TO_CART_MINIMUM_QUANTITY)
     public Integer getAmount() {
         return this.amount;
     }
