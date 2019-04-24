@@ -108,8 +108,7 @@ public class ProductServiceImpl implements ProductService {
 
         return true;
     }
-
-    //TODO REFACTOR ME
+    
     @Override
     public CartServiceModel updateProductWithCart(ProductServiceModel productServiceModel, CartServiceModel cartServiceModel) {
         Product productForCart = this.modelMapper.map(productServiceModel, Product.class);
@@ -123,44 +122,9 @@ public class ProductServiceImpl implements ProductService {
                 .findFirst().orElse(null);
 
         if (userCart == null) {
-            //add cart for user
-            cart.getUser().setCart(cart);
-
-            //set product cart amount
-            productDatabase.getCarts().add(cart);
-            productDatabase.setCartAmount(productForCart.getAmount());
-
-            //set cart total price
-            cart.setTotalPrice(productForCart.getPrice().multiply(BigDecimal.valueOf(productForCart.getAmount())));
-
-            //save cart & user
-            this.cartRepository.saveAndFlush(cart);
-            this.userRepository.save(cart.getUser());
-
-            return this.modelMapper.map(cart, CartServiceModel.class);
-
+           return this.setAndSaveUserWithNewCart(cart, productDatabase, productForCart);
         } else {
-
-            //update cart product amount if product already exists
-            if (userCart.getProducts().containsKey(productForCart.getId())) {
-                Product foundProduct = userCart.getProducts().get(productForCart.getId());
-                foundProduct.setCartAmount(foundProduct.getCartAmount() + productForCart.getAmount());
-            } else {
-                productDatabase.getCarts().add(cart);
-                productDatabase.setCartAmount(productForCart.getAmount());
-                userCart.getProducts().put(productDatabase.getId(), productDatabase);
-            }
-
-            //calculate cart total price
-            BigDecimal totalPrice = this.calculateTotalPrice(userCart);
-
-            //save cart & user
-            cart.getUser().setCart(userCart);
-            userCart.setTotalPrice(totalPrice);
-            this.cartRepository.saveAndFlush(userCart);
-            this.userRepository.save(cart.getUser());
-
-            return this.modelMapper.map(userCart, CartServiceModel.class);
+            return this.updateCartProductAmountAndSave(userCart, cart, productDatabase, productForCart);
         }
     }
 
@@ -190,5 +154,47 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return totalPrice;
+    }
+
+    private CartServiceModel setAndSaveUserWithNewCart(Cart cart, Product productDatabase, Product productForCart){
+        //add cart for user
+        cart.getUser().setCart(cart);
+
+        //set product cart amount
+        productDatabase.getCarts().add(cart);
+        productDatabase.setCartAmount(productForCart.getAmount());
+
+        //set cart total price
+        cart.setTotalPrice(productForCart.getPrice().multiply(BigDecimal.valueOf(productForCart.getAmount())));
+
+        //save cart & user
+        this.cartRepository.saveAndFlush(cart);
+        this.userRepository.save(cart.getUser());
+
+        return this.modelMapper.map(cart, CartServiceModel.class);
+    }
+
+    private CartServiceModel updateCartProductAmountAndSave(Cart userCart, Cart cart, Product productDatabase, Product productForCart){
+        //update cart product amount if product already exists
+
+        if (userCart.getProducts().containsKey(productForCart.getId())) {
+            Product foundProduct = userCart.getProducts().get(productForCart.getId());
+            foundProduct.setCartAmount(foundProduct.getCartAmount() + productForCart.getAmount());
+        } else {
+            productDatabase.getCarts().add(cart);
+            productDatabase.setCartAmount(productForCart.getAmount());
+            userCart.getProducts().put(productDatabase.getId(), productDatabase);
+        }
+
+        //calculate cart total price
+        BigDecimal totalPrice = this.calculateTotalPrice(userCart);
+
+        //save cart & user
+        cart.getUser().setCart(userCart);
+        userCart.setTotalPrice(totalPrice);
+        this.cartRepository.saveAndFlush(userCart);
+        this.userRepository.save(cart.getUser());
+
+        return this.modelMapper.map(userCart, CartServiceModel.class);
     }
 }
