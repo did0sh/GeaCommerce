@@ -108,7 +108,7 @@ public class ProductServiceImpl implements ProductService {
 
         return true;
     }
-    
+
     @Override
     public CartServiceModel updateProductWithCart(ProductServiceModel productServiceModel, CartServiceModel cartServiceModel) {
         Product productForCart = this.modelMapper.map(productServiceModel, Product.class);
@@ -122,9 +122,9 @@ public class ProductServiceImpl implements ProductService {
                 .findFirst().orElse(null);
 
         if (userCart == null) {
-           return this.setAndSaveUserWithNewCart(cart, productDatabase, productForCart);
+           return setAndSaveUserWithNewCart(cart, productDatabase, productForCart);
         } else {
-            return this.updateCartProductAmountAndSave(userCart, cart, productDatabase, productForCart);
+            return updateCartProductAmountAndSave(userCart, cart, productDatabase, productForCart);
         }
     }
 
