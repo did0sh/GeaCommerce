@@ -110,7 +110,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public CartServiceModel updateProductWithCart(ProductServiceModel productServiceModel, CartServiceModel cartServiceModel) {
+    public CartServiceModel updateProductWithCart(ProductServiceModel productServiceModel,
+                                                  CartServiceModel cartServiceModel) {
         Product productForCart = this.modelMapper.map(productServiceModel, Product.class);
         Product productDatabase = this.productRepository.findById(productForCart.getId())
                 .orElse(null);
