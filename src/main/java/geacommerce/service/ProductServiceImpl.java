@@ -123,7 +123,7 @@ public class ProductServiceImpl implements ProductService {
                 .findFirst().orElse(null);
 
         if (userCart == null) {
-           return setAndSaveUserWithNewCart(cart, productDatabase, productForCart);
+           return setCartAndSaveUserWithNewCart(cart, productDatabase, productForCart);
         } else {
             return updateCartProductAmountAndSave(userCart, cart, productDatabase, productForCart);
         }
@@ -157,7 +157,7 @@ public class ProductServiceImpl implements ProductService {
         return totalPrice;
     }
 
-    private CartServiceModel setAndSaveUserWithNewCart(Cart cart, Product productDatabase, Product productForCart){
+    private CartServiceModel setCartAndSaveUserWithNewCart(Cart cart, Product productDatabase, Product productForCart){
         //add cart for user
         cart.getUser().setCart(cart);
 
@@ -177,15 +177,7 @@ public class ProductServiceImpl implements ProductService {
 
     private CartServiceModel updateCartProductAmountAndSave(Cart userCart, Cart cart, Product productDatabase, Product productForCart){
         //update cart product amount if product already exists
-
-        if (userCart.getProducts().containsKey(productForCart.getId())) {
-            Product foundProduct = userCart.getProducts().get(productForCart.getId());
-            foundProduct.setCartAmount(foundProduct.getCartAmount() + productForCart.getAmount());
-        } else {
-            productDatabase.getCarts().add(cart);
-            productDatabase.setCartAmount(productForCart.getAmount());
-            userCart.getProducts().put(productDatabase.getId(), productDatabase);
-        }
+        updateCartProductAmount(userCart, cart, productDatabase, productForCart);
 
         //calculate cart total price
         BigDecimal totalPrice = this.calculateTotalPrice(userCart);
@@ -197,5 +189,16 @@ public class ProductServiceImpl implements ProductService {
         this.userRepository.save(cart.getUser());
 
         return this.modelMapper.map(userCart, CartServiceModel.class);
+    }
+
+    private void updateCartProductAmount(Cart userCart, Cart cart, Product productDatabase, Product productForCart){
+        if (userCart.getProducts().containsKey(productForCart.getId())) {
+            Product foundProduct = userCart.getProducts().get(productForCart.getId());
+            foundProduct.setCartAmount(foundProduct.getCartAmount() + productForCart.getAmount());
+        } else {
+            productDatabase.getCarts().add(cart);
+            productDatabase.setCartAmount(productForCart.getAmount());
+            userCart.getProducts().put(productDatabase.getId(), productDatabase);
+        }
     }
 }
