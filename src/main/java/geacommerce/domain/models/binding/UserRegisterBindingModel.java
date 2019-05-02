@@ -32,10 +32,10 @@ public class UserRegisterBindingModel {
         this.firstName = firstName.trim();
     }
 
-    @NotNull(message = Constants.NOT_NULL_REGISTER_LASTNAME_MESSAGE)
-    @NotEmpty(message = Constants.NOT_EMPTY_REGISTER_LASTNAME_MESSAGE)
+    @NotNull(message = Constants.NOT_NULL_REGISTER_LAST_NAME_MESSAGE)
+    @NotEmpty(message = Constants.NOT_EMPTY_REGISTER_LAST_NAME_MESSAGE)
     @Size(min = Constants.USER_REGISTER_LOGIN_NAME_MINIMUM_SIZE,
-            max = Constants.USER_REGISTER_LOGIN_NAME_MAXIMUM_SIZE, message = Constants.USER_REGISTER_LASTNAME_SIZE_MESSAGE)
+            max = Constants.USER_REGISTER_LOGIN_NAME_MAXIMUM_SIZE, message = Constants.USER_REGISTER_LAST_NAME_SIZE_MESSAGE)
     public String getLastName() {
         return this.lastName;
     }
@@ -54,7 +54,7 @@ public class UserRegisterBindingModel {
 
     @NotNull(message = Constants.NOT_NULL_LOGIN_REGISTER_EMAIL_MESSAGE)
     @NotEmpty(message = Constants.NOT_EMPTY_LOGIN_REGISTER_EMAIL_MESSAGE)
-    @Email(message = Constants.USER_REGISTER_LOGIN_EMAIL_MESSAGE)
+    @Email(regexp = Constants.USER_REGISTER_LOGIN_EMAIL_PATTERN, message = Constants.USER_REGISTER_LOGIN_EMAIL_MESSAGE)
     public String getEmail() {
         return this.email;
     }
@@ -94,7 +94,7 @@ public class UserRegisterBindingModel {
         this.town = town;
     }
 
-    @Size(min = Constants.USER_LOGIN_REGISTER_PASSWORD_MINIMUM_SIZE, message = Constants.USER_LOGIN_REGISTER_PASSWORD_INVALID_MESSAGE)
+    @Pattern(regexp = Constants.USER_LOGIN_REGISTER_PASSWORD_PATTERN, message = Constants.USER_LOGIN_REGISTER_PASSWORD_INVALID_MESSAGE)
     public String getPassword() {
         return this.password;
     }
