@@ -29,7 +29,7 @@ public class InquiryBindingModel {
 
     @NotNull(message = Constants.NOT_NULL_LOGIN_REGISTER_EMAIL_MESSAGE)
     @NotEmpty(message = Constants.NOT_EMPTY_LOGIN_REGISTER_EMAIL_MESSAGE)
-    @Email(message = Constants.USER_REGISTER_LOGIN_EMAIL_MESSAGE)
+    @Email(regexp = Constants.USER_REGISTER_LOGIN_EMAIL_PATTERN, message = Constants.USER_REGISTER_LOGIN_EMAIL_MESSAGE)
     public String getUserEmail() {
         return this.userEmail;
     }

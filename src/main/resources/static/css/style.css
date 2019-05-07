@@ -22,10 +22,6 @@
     text-decoration: none;
 }
 
-/*
- * Dummy devices (replace them with your own or something else entirely!)
- */
-
 .product-device {
     position: absolute;
     right: 10%;
@@ -56,10 +52,6 @@
     left: 5%;
     background-color: #e5e5e5;
 }
-
-/*
- * Extra utilities
- */
 
 .border-top {
     border-top: 1px solid #e5e5e5;

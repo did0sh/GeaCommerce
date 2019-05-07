@@ -20,15 +20,32 @@
             <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/our-shops}">Магазини</a>
             <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/products/all?page=1}">Продукти</a>
             <th:block th:if="${session.role == 'Admin'}">
-                <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/orders}"><i class="fas fa-folder"></i> Поръчки </a>
-                <a class="py-2 d-none d-md-inline-block ml-5" th:href="@{/user/profile-admin}" th:utext="'Админ: ' + ${session.name} + ' ' + ${session.lastName}"/>
-                <a class="py-2 d-none d-md-inline-block ml-2" th:href="@{/products/add-product}">Добави продукт</a>
-                <a class="py-2 d-none d-md-inline-block ml-2" th:href="@{/logout}">Изход <i class="fas fa-sign-out-alt"></i></a>
+                <div class="dropdown show">
+                    <a class="py-2 d-none d-md-inline-block dropdown-toggle" th:href="@{#}" role="button" id="dropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                       th:utext="'Админ: ' + ${session.name} + ' ' + ${session.lastName}"/>
+
+                    <div class="dropdown-menu" style="background-color: rgba(0, 0, 0, .85)" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" style="background-color: transparent" th:href="@{/user/profile-admin}">Профил</a>
+                        <a class="dropdown-item" style="background-color: transparent" th:href="@{/orders}"><i class="fas fa-folder"></i> Поръчки</a>
+                        <a class="dropdown-item" style="background-color: transparent" th:href="@{/inquiries/details}"><i class="fas fa-reply"></i> Запитвания</a>
+                        <a class="dropdown-item" style="background-color: transparent" th:href="@{/products/add-product}"><i class="fas fa-plus"></i> Добави продукт</a>
+                        <a class="dropdown-item" style="background-color: transparent" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Изход</a>
+                    </div>
+                </div>
             </th:block>
             <th:block th:if="${session.role == 'Guest'}">
-                <a class="py-2 d-none d-md-inline-block mr-2" th:href="@{/cart/{id}(id=${session.user.id})}"><i class="fas fa-shopping-cart"></i> Количка </a>
-                <a class="py-2 d-none d-md-inline-block ml-5" th:href="@{/user/profile}" th:utext="${session.name} + ' ' + ${session.lastName}"/>
-                <a class="py-2 d-none d-md-inline-block" th:href="@{/logout}">Изход <i class="fas fa-sign-out-alt"></i></a>
+                <div class="dropdown show">
+                    <a class="py-2 d-none d-md-inline-block dropdown-toggle" th:href="@{#}" role="button" id="dropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                       th:utext="${session.name} + ' ' + ${session.lastName}"/>
+
+                    <div class="dropdown-menu" style="background-color: rgba(0, 0, 0, .85)" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" style="background-color: transparent" th:href="@{/user/profile}">Профил</a>
+                        <a class="dropdown-item" style="background-color: transparent" th:href="@{/cart/{id}(id=${session.user.id})}"><i class="fas fa-shopping-cart"></i> Количка</a>
+                        <a class="dropdown-item" style="background-color: transparent" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Изход</a>
+                    </div>
+                </div>
             </th:block>
             <th:block th:if="${session.role == null}">
                 <a class="py-2 d-none d-md-inline-block ml-5" th:href="@{/create-account}"><i class="fas fa-user"></i> Създай профил</a>

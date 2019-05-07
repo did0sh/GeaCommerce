@@ -31,7 +31,7 @@ public class OrderController extends BaseController {
     @RequestMapping("/orders")
     @PageTitle(value = "Поръчки")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView inquiry(HttpSession session) {
+    public ModelAndView order(HttpSession session) {
         List<OrderViewModel> allOrders = this.orderService.findAllOrders()
                 .stream().map(orderServiceModel -> {
 
@@ -61,6 +61,7 @@ public class OrderController extends BaseController {
                   .collect(Collectors.toList());
 
         if(session.getAttribute("role") == "Admin"){
+            session.setAttribute("orders", allOrders.size());
             return super.view("orders", "allOrders", allOrders);
         }
 

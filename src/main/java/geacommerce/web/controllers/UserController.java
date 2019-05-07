@@ -5,6 +5,7 @@ import geacommerce.domain.models.binding.UserRegisterBindingModel;
 import geacommerce.domain.models.service.CartServiceModel;
 import geacommerce.domain.models.service.UserServiceModel;
 import geacommerce.service.InquiryService;
+import geacommerce.service.OrderService;
 import geacommerce.service.UserService;
 import geacommerce.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
@@ -28,13 +29,15 @@ public class UserController extends BaseController {
 
     private final UserService userService;
     private final InquiryService inquiryService;
+    private final OrderService orderService;
     private final ModelMapper modelMapper;
     private final Validator validator;
 
     @Autowired
-    public UserController(UserService userService, InquiryService inquiryService, ModelMapper modelMapper, Validator validator) {
+    public UserController(UserService userService, InquiryService inquiryService, OrderService orderService, ModelMapper modelMapper, Validator validator) {
         this.userService = userService;
         this.inquiryService = inquiryService;
+        this.orderService = orderService;
         this.modelMapper = modelMapper;
         this.validator = validator;
     }
@@ -102,6 +105,7 @@ public class UserController extends BaseController {
         session.setAttribute("cart", cartServiceModel);
 
         session.setAttribute("inquiries", this.inquiryService.findAllInquiries().size());
+        session.setAttribute("orders", this.orderService.findAllOrders().size());
         return super.view("sign-in", "loggedIn", true);
     }
 
