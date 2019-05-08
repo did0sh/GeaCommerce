@@ -1,5 +1,6 @@
 package geacommerce.web.controllers;
 
+import geacommerce.domain.models.service.UserServiceModel;
 import geacommerce.domain.models.view.OrderViewModel;
 import geacommerce.service.OrderService;
 import geacommerce.web.annotations.PageTitle;
@@ -32,6 +33,42 @@ public class OrderController extends BaseController {
     @PageTitle(value = "Поръчки")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView order(HttpSession session) {
+        List<OrderViewModel> allOrders = this.displaySortedOrders();
+
+        if(session.getAttribute("role") == "Admin"){
+            session.setAttribute("orders", allOrders.size());
+            return super.view("orders", "allOrders", allOrders);
+        }
+
+        return super.redirect("/");
+    }
+
+    @PostMapping(value = "/orders/{id}", params = "action=complete")
+    @PageTitle(value = "Поръчки")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView completeOrder(@PathVariable(name = "id") String orderId){
+        this.orderService.completeOrder(orderId);
+        return super.redirect("/orders");
+    }
+
+    @RequestMapping(value = "/user/orders")
+    @PageTitle(value = "История на поръчките")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView ordersHistory(HttpSession session){
+        if (session.getAttribute("role") == "Guest"){
+            String userEmail = (String) session.getAttribute("email");
+
+            List<OrderViewModel> userOrders = this.displaySortedOrders()
+                    .stream().filter(orderViewModel -> orderViewModel.getClientEmail().equals(userEmail))
+                    .collect(Collectors.toList());
+
+            return super.view("orders-history", "userOrders", userOrders);
+        }
+
+        return super.redirect("/sign-in");
+    }
+
+    private List<OrderViewModel> displaySortedOrders(){
         List<OrderViewModel> allOrders = this.orderService.findAllOrders()
                 .stream().map(orderServiceModel -> {
 
@@ -58,21 +95,8 @@ public class OrderController extends BaseController {
                     model.setFormattedProducts(formattedProducts);
                     return model;
                 }).sorted(Comparator.comparing(OrderViewModel::getOrderDate))
-                  .collect(Collectors.toList());
+                .collect(Collectors.toList());
 
-        if(session.getAttribute("role") == "Admin"){
-            session.setAttribute("orders", allOrders.size());
-            return super.view("orders", "allOrders", allOrders);
-        }
-
-        return super.redirect("/");
-    }
-
-    @PostMapping(value = "/orders/{id}", params = "action=complete")
-    @PageTitle(value = "Поръчки")
-    @PreAuthorize("isAuthenticated()")
-    public ModelAndView completeOrder(@PathVariable(name = "id") String orderId){
-        this.orderService.completeOrder(orderId);
-        return super.redirect("/orders");
+        return allOrders;
     }
 }

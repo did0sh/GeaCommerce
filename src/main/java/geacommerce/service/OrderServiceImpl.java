@@ -5,9 +5,11 @@ import geacommerce.domain.models.service.OrderServiceModel;
 import geacommerce.repository.OrderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,12 +52,25 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean completeOrder(String orderId) {
         try {
-            this.orderRepository.deleteById(orderId);
+            Order currentOrder = this.orderRepository.findById(orderId).orElse(null);
+            currentOrder.setStatus("Изпълнена");
+            this.orderRepository.save(currentOrder);
         }catch (Exception e){
             e.printStackTrace();
             return false;
         }
 
         return true;
+    }
+
+    @Scheduled(fixedRate = 172_800_000L)
+    void removeDeliveredOrders() {
+        List<Order> deliveredOrders = this.orderRepository.findAll()
+                .stream().filter(order -> order.getStatus().equals("Изпълнена"))
+                .collect(Collectors.toList());
+
+        if (!deliveredOrders.isEmpty()){
+            deliveredOrders.forEach(this.orderRepository::delete);
+        }
     }
 }

@@ -43,6 +43,7 @@
                     <div class="dropdown-menu" style="background-color: rgba(0, 0, 0, .85)" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" style="background-color: transparent" th:href="@{/user/profile}">Профил</a>
                         <a class="dropdown-item" style="background-color: transparent" th:href="@{/cart/{id}(id=${session.user.id})}"><i class="fas fa-shopping-cart"></i> Количка</a>
+                        <a class="dropdown-item" style="background-color: transparent" th:href="@{/user/orders}"><i class="fas fa-history"></i> История на поръчките</a>
                         <a class="dropdown-item" style="background-color: transparent" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Изход</a>
                     </div>
                 </div>

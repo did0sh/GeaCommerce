@@ -1,0 +1,68 @@
+<!--suppress ALL -->
+<th:block th:fragment>
+    <style type="text/css">
+        .modal-content {
+            background-color: #BBD6EC;
+        }
+
+        .modal-header {
+            background-color: #337AB7;
+            padding: 16px 16px;
+            color: #FFF;
+            border-bottom: 2px dashed #337AB7;
+        }
+    </style>
+    <div class="d-flex justify-content-center">
+        <th:block th:if="${userOrders.size() == 0}">
+            <h3 class="d-flex justify-content-center ml-3 mt-3">Нямате направени поръчки!</h3>
+        </th:block>
+        <th:block th:unless="${userOrders.size() == 0}">
+            <div class="row">
+
+
+                <div class="col-md-12 mt-3">
+                    <h3 align="center">История на Вашите поръчки</h3>
+                    <div class="table-responsive">
+
+
+                        <table id="mytable" class="table table-bordred table-striped">
+
+                            <thead>
+                            <th>Име</th>
+                            <th>Имейл</th>
+                            <th>Адрес</th>
+                            <th>Дата и час</th>
+                            <th>Цена</th>
+                            <th>Статус</th>
+                            <th>Продукти</th>
+
+                            </thead>
+                            <tbody>
+
+                            <th:block th:each="order, iterStat : ${userOrders}" th:object="${order}">
+                                <tr>
+                                    <td th:utext="${iterStat.index + 1} + '. ' + ${order.clientName}"></td>
+                                    <td th:utext="${order.clientEmail}"></td>
+                                    <td th:utext="${order.deliveryAddress}"></td>
+                                    <td th:utext="${#strings.replace(order.orderDate, 'T', ' ')}"></td>
+                                    <td th:utext="${order.orderPrice} + ' лв.'"></td>
+                                    <td th:utext="${order.status}"></td>
+                                    <td th:utext="${#strings.listJoin(order.formattedProducts.get(order.id), ' | ')}"></td>
+                                </tr>
+
+                            </th:block>
+
+                            </tbody>
+
+                        </table>
+
+                        <div style="text-align: center;"><br/>
+                            <blockquote><strong>ВАЖНО: </strong>Моля, имайте предвид, че поръчка със статус <b>"Изпълнена"</b> ще бъде автоматично изтрита след <b>2 дена</b> от нейната промяна в статуса!</blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+    <hr/>
+</th:block>

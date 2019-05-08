@@ -37,6 +37,7 @@
                             <th>Продукти</th>
                             <th>Завърши</th>
 
+
                             </thead>
                             <tbody>
 
@@ -49,13 +50,18 @@
                                     <td th:utext="${order.orderPrice} + ' лв.'"></td>
                                     <td th:utext="${order.status}"></td>
                                     <td th:utext="${#strings.listJoin(order.formattedProducts.get(order.id), ' | ')}"></td>
-                                    <td>
-                                        <p data-placement="top" data-toggle="tooltip">
-                                            <button class="btn btn-success btn-xs ml-3" data-toggle="modal"
-                                                    th:attr="data-target='#deleteModal'+${iterStat.index}"><i
-                                                    class="fas fa-user-check"></i></button>
-                                        </p>
-                                    </td>
+                                    <th:block th:if="${order.status == 'Изпълнена'}">
+                                        <td th:utext="Завършена" style="background-color: lightgreen"></td>
+                                    </th:block>
+                                    <th:block th:unless="${order.status == 'Изпълнена'}">
+                                        <td>
+                                            <p data-placement="top" data-toggle="tooltip">
+                                                <button class="btn btn-success btn-xs ml-3" data-toggle="modal"
+                                                        th:attr="data-target='#deleteModal'+${iterStat.index}"><i
+                                                        class="fas fa-user-check"></i></button>
+                                            </p>
+                                        </td>
+                                    </th:block>
                                 </tr>
 
                                 <div class="modal fade" th:id="deleteModal + ${iterStat.index}" tabindex="-1"
@@ -73,7 +79,7 @@
                                             <div class="modal-body col-md-12 col-lg-12">
                                                 <div class="col-xs-4">
                                                     Завършването на поръчката означава, че тя е била получена от клиента
-                                                    и следва да бъде изтрита. <br/>
+                                                    и следва да бъде маркирана като <b>"Завършена"</b>. <br/>
                                                     Сигурни ли сте, че искате това?
                                                 </div>
                                             </div>
@@ -98,6 +104,10 @@
                             </tbody>
 
                         </table>
+
+                        <div style="text-align: center;"><br/>
+                            <blockquote><strong>ВАЖНО: </strong>Моля, имайте предвид, че поръчка маркирана като <b>"Завършена"</b> ще бъде автоматично изтрита след <b>2 дена</b> от нейното маркиране!</blockquote>
+                        </div>
                     </div>
                 </div>
             </div>
